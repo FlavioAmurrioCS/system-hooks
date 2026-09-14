@@ -1,0 +1,4 @@
+#:schema https://www.schemastore.org/ruff.json
+line-length = 120
+# Fixtures are intentionally broken.
+extend-exclude = ["tests/fixtures"]

@@ -1,0 +1,4 @@
+# upstream/.pre-commit-config.yaml is the manifest for scripts/sync.py, not a
+# project: without this, prek discovers it as a nested project and runs every
+# mirrored hook (vale, uv-test, ...) against this repo.
+upstream/

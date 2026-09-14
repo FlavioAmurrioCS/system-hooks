@@ -1,0 +1,126 @@
+# yaml-language-server: $schema=https://www.schemastore.org/pre-commit-config.json
+# Manifest for scripts/sync.py -- NOT run as this repo's hooks (that's why it
+# lives in upstream/ instead of the repo root; see self-lint.yaml for those).
+#
+# - Remote repos: the listed hooks are copied from upstream at `rev`; hook-level
+#   keys here (args, files, stages, ...) replace upstream's values. They get
+#   `language: system` (except `language: fail`, kept as is); `id` can't change.
+# - `repo: local`: hooks owned by this repo, published as written. Use
+#   `language: system`, `script` (script in hooks/<id>.sh) or `fail`.
+# - Published ids and aliases must be unique across all repos. No renames: to
+#   publish a variant of an upstream hook, copy it under `repo: local` with a new id.
+# - Every published hook needs a fixture case in scripts/test.sh.
+#
+# Bump revs:  mise run update
+#   (= pre-commit autoupdate -c upstream/.pre-commit-config.yaml && sync && test)
+---
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      # Console scripts from `pipx:pre-commit-hooks` in mise.
+      - id: check-added-large-files
+      - id: check-case-conflict
+      - id: check-executables-have-shebangs
+      - id: check-illegal-windows-names
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-shebang-scripts-are-executable
+      - id: check-symlinks
+      - id: check-toml
+      - id: check-yaml
+      - id: debug-statements
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+      - id: name-tests-test
+      - id: requirements-txt-fixer
+      - id: trailing-whitespace
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.1
+    hooks:
+      - id: gitleaks
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.11.0.1-1
+    hooks:
+      - id: shellcheck
+  - repo: https://github.com/scop/pre-commit-shfmt
+    rev: v3.14.1-1
+    hooks:
+      # Style flags (-i 2 -ci ...) belong in .editorconfig, which shfmt reads
+      # when no style flags are passed.
+      - id: shfmt
+  - repo: https://github.com/errata-ai/vale
+    rev: v3.21.0
+    hooks:
+      # Narrow per project, e.g. `files: \.md$`.
+      - id: vale
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.16.7
+    hooks:
+      - id: ruff-check
+      - id: ruff-format
+      - id: ruff
+  - repo: https://github.com/ComPWA/mirrors-taplo
+    rev: v0.9.3
+    hooks:
+      - id: taplo-format
+      - id: taplo-lint
+        # Upstream passes --default-schema-catalogs, which downloads the
+        # schemastore catalog at every run (blocked behind Artifactory) and
+        # fails to parse the current catalog with taplo 0.10.0.
+        args: []
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.12.13
+    hooks:
+      - id: uv-lock
+      - id: uv-export
+
+  # Type checkers and tests run through the project's own uv environment.
+  # They expect the project to define the dependency groups used below
+  # (see python-cookie: `type-checkers`, and `dev` pulling in mypy/pytest).
+  - repo: local
+    hooks:
+      - id: uv-ty
+        name: uv-ty
+        entry: env VIRTUAL_ENV= uv run --group=type-checkers ty check
+        language: system
+        types_or: [python, pyi]
+        require_serial: true
+      - id: uv-pyrefly
+        name: uv-pyrefly
+        entry: env VIRTUAL_ENV= uv run --group=type-checkers pyrefly check
+        language: system
+        types_or: [python, pyi]
+        require_serial: true
+      - id: uv-zuban
+        name: uv-zuban
+        entry: env VIRTUAL_ENV= uv run --group=type-checkers zuban check
+        language: system
+        types_or: [python, pyi]
+        require_serial: true
+      - id: uv-mypy
+        name: uv-mypy
+        entry: env VIRTUAL_ENV= uv run mypy
+        language: system
+        types_or: [python, pyi]
+        require_serial: true
+      - id: uv-basedpyright
+        name: uv-basedpyright
+        entry: env VIRTUAL_ENV= uv run --group=type-checkers basedpyright
+        language: system
+        types_or: [python, pyi]
+        require_serial: true
+      - id: uv-pyright
+        name: uv-pyright
+        entry: env VIRTUAL_ENV= uv run --group=type-checkers pyright
+        language: system
+        types_or: [python, pyi]
+        require_serial: true
+      - id: uv-test
+        name: uv-test
+        entry: env VIRTUAL_ENV= uv run pytest
+        language: system
+        types: [python]
+        pass_filenames: false
+        always_run: true

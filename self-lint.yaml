@@ -1,0 +1,41 @@
+# Hooks that lint THIS repo. scripts/sync.py turns this into .pre-commit-config.yaml,
+# copying each hook from the generated .pre-commit-hooks.yaml as a `repo: local`
+# hook, so the repo is linted with its current (unreleased) hook definitions.
+#
+# - Keys other than `id` override the hook definition (like in a normal config).
+# - A hook that is not in .pre-commit-hooks.yaml must be fully defined
+#   (name, entry, language) and is only used here.
+# - Top-level keys other than `hooks` are copied to the generated config.
+---
+# Bad fixtures are broken on purpose.
+exclude: ^tests/fixtures/
+
+hooks:
+  - id: gitleaks
+  - id: check-added-large-files
+  - id: check-case-conflict
+  - id: check-merge-conflict
+  - id: check-executables-have-shebangs
+  - id: check-shebang-scripts-are-executable
+  - id: check-symlinks
+  - id: check-json
+  - id: check-toml
+  - id: check-yaml
+  - id: detect-private-key
+  - id: end-of-file-fixer
+  - id: mixed-line-ending
+  - id: trailing-whitespace
+    args: [--markdown-linebreak-ext=md]
+  - id: shellcheck
+  - id: shfmt
+  - id: ruff-check
+  - id: ruff-format
+  - id: taplo-format
+  - id: taplo-lint
+
+  - id: sync-check
+    name: generated files are in sync
+    entry: uv run scripts/sync.py --check
+    language: system
+    files: ^(upstream/\.pre-commit-config\.yaml|self-lint\.yaml|\.pre-commit-hooks\.yaml|\.pre-commit-config\.yaml|scripts/sync\.py)$
+    pass_filenames: false

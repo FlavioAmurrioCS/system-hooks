@@ -1,0 +1,2 @@
+# stale: uv export will rewrite this
+requests==1.0.0

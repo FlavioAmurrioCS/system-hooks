@@ -1,0 +1,41 @@
+#:schema https://mise.jdx.dev/schema/mise.json
+# Tools used to develop and test this repo. Consumer projects pin their own
+# versions in their own mise.toml.
+[tools]
+"pipx:pre-commit-hooks" = "latest"
+gitleaks = "latest"
+ruff = "latest"
+shellcheck = "latest"
+shfmt = "latest"
+taplo = "latest"
+vale = "latest"
+prek = "latest"
+pre-commit = "latest"
+uv = "latest"
+
+[tasks.sync]
+description = "Regenerate .pre-commit-hooks.yaml and .pre-commit-config.yaml"
+run = "uv run scripts/sync.py"
+
+[tasks.update]
+description = "Bump upstream revs and this repo's tools, regenerate and test"
+run = [
+  # Already-installed versions satisfy "latest", so upgrade explicitly; otherwise
+  # tools lag behind the hook definitions (e.g. ruff-format on markdown).
+  "mise upgrade pipx:pre-commit-hooks gitleaks ruff shellcheck shfmt taplo vale prek pre-commit uv",
+  "pre-commit autoupdate -c upstream/.pre-commit-config.yaml",
+  "uv run scripts/sync.py",
+  "scripts/test.sh",
+]
+
+[tasks.test]
+description = "Check the generated files are in sync and run every hook against the fixtures"
+run = "scripts/test.sh"
+
+[tasks.lint]
+description = "Lint this repo with its own hooks"
+run = "prek run --all-files"
+
+[tasks.release]
+description = "Check, test and create today's YYYY.M.D release tag (flags: --dry-run --force --no-test)"
+run = "scripts/release.sh"
