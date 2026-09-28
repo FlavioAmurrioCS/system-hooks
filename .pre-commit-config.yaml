@@ -20,12 +20,12 @@ repos:
     hooks:
       - id: ty
   - repo: https://github.com/oxc-project/mirrors-oxfmt
-    rev: v0.70.0
+    rev: v0.71.0
     mise_tools: [oxfmt, node]
     hooks:
       - id: oxfmt
   - repo: https://github.com/oxc-project/mirrors-oxlint
-    rev: v1.85.0
+    rev: v1.60.0
     mise_tools: [oxlint]
     hooks:
       - id: oxlint
