@@ -53,7 +53,7 @@ repos:
       - id: mise-shellcheck
 ```
 
-Each release gets a date tag in the form `YYYY.MM.DD`, and
+Each release gets a date tag in the form `vYYYY.MM.DD`, and
 `pre-commit autoupdate` picks up new ones. A release pins the hook definitions,
 not tool versions: those come from your environment or `mise.toml`.
 
