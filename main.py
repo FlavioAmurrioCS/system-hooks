@@ -34,6 +34,7 @@ if TYPE_CHECKING:
         id: str
         entry: str
         additional_dependencies: NotRequired[list[str]]
+        language_version: NotRequired[str]
         language: str
         mise_tools: NotRequired[list[str]]
 
@@ -132,6 +133,7 @@ def main() -> None:  # noqa: PLR0915
                 mise_tools = local_hook.pop("mise_tools", None) or global_mise_tools
                 local_hook["language"] = "system"
                 local_hook.pop("additional_dependencies", None)
+                local_hook.pop("language_version", None)
                 pre_commit_hooks.append(local_hook)
 
                 hook = deepcopy(local_hook)
@@ -164,6 +166,7 @@ def main() -> None:  # noqa: PLR0915
                     upstream_pre_commit_hooks_hook[k] = v
                 upstream_pre_commit_hooks_hook["language"] = "system"
                 upstream_pre_commit_hooks_hook.pop("additional_dependencies", None)
+                upstream_pre_commit_hooks_hook.pop("language_version", None)
                 strip_trailing_comments(upstream_pre_commit_hooks_hook)
                 mise_tools = (
                     upstream_pre_commit_hooks_hook.pop("mise_tools", None) or global_mise_tools
