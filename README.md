@@ -46,7 +46,7 @@ environment active. Use the `mise-` variant instead.
 ```yaml
 repos:
   - repo: https://github.com/FlavioAmurrioCS/system-hooks
-    rev: 2026.09.28
+    rev: v2026.09.28
     hooks:
       - id: ruff-check
       - id: ruff-format
