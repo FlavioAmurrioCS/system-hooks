@@ -1,0 +1,542 @@
+# yaml-language-server: $schema=https://www.schemastore.org/pre-commit-hooks.json
+---
+################################################################################
+# region: https://github.com/astral-sh/ruff-pre-commit/tree/v0.16.9
+################################################################################
+- id: ruff-check
+  name: ruff check
+  description: Run 'ruff check' for extremely fast Python linting
+  entry: ruff check --force-exclude
+  language: system
+  types_or: [python, pyi, jupyter]
+  args: [--fix]
+  require_serial: true
+  minimum_pre_commit_version: 2.9.2
+- id: mise-ruff-check
+  name: ruff check
+  description: Run 'ruff check' for extremely fast Python linting
+  entry: mise exec ruff -- ruff check --force-exclude
+  language: system
+  types_or: [python, pyi, jupyter]
+  args: [--fix]
+  require_serial: true
+  minimum_pre_commit_version: 2.9.2
+- id: ruff-format
+  name: ruff format
+  description: Run 'ruff format' for extremely fast Python formatting
+  entry: ruff format --force-exclude
+  language: system
+  types_or: [python, pyi, jupyter, markdown]
+  args: []
+  require_serial: true
+  minimum_pre_commit_version: 2.9.2
+- id: mise-ruff-format
+  name: ruff format
+  description: Run 'ruff format' for extremely fast Python formatting
+  entry: mise exec ruff -- ruff format --force-exclude
+  language: system
+  types_or: [python, pyi, jupyter, markdown]
+  args: []
+  require_serial: true
+  minimum_pre_commit_version: 2.9.2
+################################################################################
+# endregion: https://github.com/astral-sh/ruff-pre-commit/tree/v0.16.9
+################################################################################
+
+################################################################################
+# region: https://github.com/astral-sh/ty-pre-commit/tree/v0.0.84
+################################################################################
+- id: ty
+  name: ty
+  description: Run 'ty' for extremely fast Python type checking
+  entry: uv check --quiet --preview-features=check-command --ty-version=0.0.84
+  language: system
+  types_or: [python, pyi, jupyter]
+  args: []
+
+  # Check the whole project instead of appending matching filenames to the command.
+  #
+  # Exactly which files ty should emit diagnostics on can be configured using
+  # the ty configuration file. Changes in file `b.py` can cause new diagnostics to
+  # appear in `a.py`, so passing only `b.py` as a positional argument to `ty check`
+  # if only `b.py` changed would give a false sense of security regarding whether
+  # the code still type-checks.
+  pass_filenames: false
+  always_run: true
+  require_serial: true
+  minimum_pre_commit_version: 2.9.2
+- id: mise-ty
+  name: ty
+  description: Run 'ty' for extremely fast Python type checking
+  entry: mise exec uv -- uv check --quiet --preview-features=check-command --ty-version=0.0.84
+  language: system
+  types_or: [python, pyi, jupyter]
+  args: []
+
+  # Check the whole project instead of appending matching filenames to the command.
+  #
+  # Exactly which files ty should emit diagnostics on can be configured using
+  # the ty configuration file. Changes in file `b.py` can cause new diagnostics to
+  # appear in `a.py`, so passing only `b.py` as a positional argument to `ty check`
+  # if only `b.py` changed would give a false sense of security regarding whether
+  # the code still type-checks.
+  pass_filenames: false
+  always_run: true
+  require_serial: true
+  minimum_pre_commit_version: 2.9.2
+################################################################################
+# endregion: https://github.com/astral-sh/ty-pre-commit/tree/v0.0.84
+################################################################################
+
+################################################################################
+# region: https://github.com/oxc-project/mirrors-oxfmt/tree/v0.70.0
+################################################################################
+- id: oxfmt
+  name: oxfmt
+  description: Formatter for the JavaScript Oxidation Compiler
+  entry: oxfmt
+  language: system
+  types_or: [javascript, jsx, ts, tsx]
+  args: []
+  require_serial: false
+  minimum_pre_commit_version: 2.9.2
+- id: mise-oxfmt
+  name: oxfmt
+  description: Formatter for the JavaScript Oxidation Compiler
+  entry: mise exec oxfmt node -- oxfmt
+  language: system
+  types_or: [javascript, jsx, ts, tsx]
+  args: []
+  require_serial: false
+  minimum_pre_commit_version: 2.9.2
+################################################################################
+# endregion: https://github.com/oxc-project/mirrors-oxfmt/tree/v0.70.0
+################################################################################
+
+################################################################################
+# region: https://github.com/oxc-project/mirrors-oxlint/tree/v1.85.0
+################################################################################
+- id: oxlint
+  name: oxlint
+  description: Linter for the JavaScript Oxidation Compiler
+  entry: oxlint
+  language: system
+  types_or: [javascript, jsx, ts, tsx]
+  args: []
+  require_serial: false
+  minimum_pre_commit_version: 2.9.2
+- id: mise-oxlint
+  name: oxlint
+  description: Linter for the JavaScript Oxidation Compiler
+  entry: mise exec oxlint -- oxlint
+  language: system
+  types_or: [javascript, jsx, ts, tsx]
+  args: []
+  require_serial: false
+  minimum_pre_commit_version: 2.9.2
+################################################################################
+# endregion: https://github.com/oxc-project/mirrors-oxlint/tree/v1.85.0
+################################################################################
+
+################################################################################
+# region: https://github.com/rhysd/actionlint/tree/v1.7.12
+################################################################################
+- id: actionlint
+  name: Lint GitHub Actions workflow files
+  description: Runs actionlint to lint GitHub Actions workflow files
+  language: system
+  types: [yaml]
+  files: ^\.github/workflows/
+  entry: actionlint
+  minimum_pre_commit_version: 3.0.0
+- id: mise-actionlint
+  name: Lint GitHub Actions workflow files
+  description: Runs actionlint to lint GitHub Actions workflow files
+  language: system
+  types: [yaml]
+  files: ^\.github/workflows/
+  entry: mise exec actionlint -- actionlint
+  minimum_pre_commit_version: 3.0.0
+################################################################################
+# endregion: https://github.com/rhysd/actionlint/tree/v1.7.12
+################################################################################
+
+################################################################################
+# region: https://github.com/zizmorcore/zizmor-pre-commit/tree/v1.30.1
+################################################################################
+- id: zizmor
+  name: zizmor
+  description: Find security issues in GitHub Actions CI/CD setups
+  language: system
+  types: [yaml]
+  # Select the YAML inputs supported by zizmor:
+  # - files directly under any `.github/workflows` directory;
+  # - `.github/dependabot.{yml,yaml}`;
+  # - `action.{yml,yaml}` anywhere; and
+  # - `.pre-commit-{config,hooks}.{yml,yaml}` anywhere.
+  files: (^|/)(\.github/(workflows/[^/]+|dependabot)\.ya?ml|action\.ya?ml|\.pre-commit-(config|hooks)\.ya?ml)$
+  require_serial: true
+  entry: zizmor
+  args:
+    - --no-progress # https://github.com/zizmorcore/zizmor/issues/582
+- id: mise-zizmor
+  name: zizmor
+  description: Find security issues in GitHub Actions CI/CD setups
+  language: system
+  types: [yaml]
+  # Select the YAML inputs supported by zizmor:
+  # - files directly under any `.github/workflows` directory;
+  # - `.github/dependabot.{yml,yaml}`;
+  # - `action.{yml,yaml}` anywhere; and
+  # - `.pre-commit-{config,hooks}.{yml,yaml}` anywhere.
+  files: (^|/)(\.github/(workflows/[^/]+|dependabot)\.ya?ml|action\.ya?ml|\.pre-commit-(config|hooks)\.ya?ml)$
+  require_serial: true
+  entry: mise exec zizmor -- zizmor
+  args:
+    - --no-progress # https://github.com/zizmorcore/zizmor/issues/582
+################################################################################
+# endregion: https://github.com/zizmorcore/zizmor-pre-commit/tree/v1.30.1
+################################################################################
+
+################################################################################
+# region: https://github.com/scop/pre-commit-shfmt/tree/v3.14.1-1
+################################################################################
+- id: shfmt
+  name: shfmt
+  description: Shell source code formatter (prebuilt upstream executable)
+  language: system
+  entry: shfmt
+  args: [--write]
+  types: [shell]
+  exclude_types: [csh, tcsh]
+  stages: [pre-commit, pre-merge-commit, pre-push, manual]
+  minimum_pre_commit_version: 3.2.0 # for "stages" names
+- id: mise-shfmt
+  name: shfmt
+  description: Shell source code formatter (prebuilt upstream executable)
+  language: system
+  entry: mise exec shfmt -- shfmt
+  args: [--write]
+  types: [shell]
+  exclude_types: [csh, tcsh]
+  stages: [pre-commit, pre-merge-commit, pre-push, manual]
+  minimum_pre_commit_version: 3.2.0 # for "stages" names
+################################################################################
+# endregion: https://github.com/scop/pre-commit-shfmt/tree/v3.14.1-1
+################################################################################
+
+################################################################################
+# region: local
+################################################################################
+- id: bash-syntax-check
+  name: bash-syntax-check
+  entry: pre-commit hazmat n1 /bin/bash -n --
+  args: []
+  language: system
+  minimum_pre_commit_version: 4.5.0
+  types: [shell]
+  exclude_types: [zsh]
+- id: mise-bash-syntax-check
+  name: bash-syntax-check
+  entry: mise exec pre-commit -- pre-commit hazmat n1 /bin/bash -n --
+  args: []
+  language: system
+  minimum_pre_commit_version: 4.5.0
+  types: [shell]
+  exclude_types: [zsh]
+- id: oxfmt-yaml
+  name: oxfmt-yaml
+  description: Format YAML files with oxfmt
+  entry: oxfmt
+  language: system
+  types: [yaml]
+  args: []
+  require_serial: false
+- id: mise-oxfmt-yaml
+  name: oxfmt-yaml
+  description: Format YAML files with oxfmt
+  entry: mise exec oxfmt node -- oxfmt
+  language: system
+  types: [yaml]
+  args: []
+  require_serial: false
+- id: oxfmt-json
+  name: oxfmt-json
+  description: Format JSON files with oxfmt
+  entry: oxfmt
+  language: system
+  types: [json]
+  args: []
+  require_serial: false
+- id: mise-oxfmt-json
+  name: oxfmt-json
+  description: Format JSON files with oxfmt
+  entry: mise exec oxfmt node -- oxfmt
+  language: system
+  types: [json]
+  args: []
+  require_serial: false
+################################################################################
+# endregion: local
+################################################################################
+
+################################################################################
+# region: https://github.com/shellcheck-py/shellcheck-py/tree/v0.11.0.1-1
+################################################################################
+- id: shellcheck
+  name: shellcheck
+  description: Test shell scripts with shellcheck
+  entry: shellcheck
+  language: system
+  types: [shell]
+  exclude_types: [zsh]
+  require_serial: true # shellcheck can detect sourcing this way
+- id: mise-shellcheck
+  name: shellcheck
+  description: Test shell scripts with shellcheck
+  entry: mise exec shellcheck -- shellcheck
+  language: system
+  types: [shell]
+  exclude_types: [zsh]
+  require_serial: true # shellcheck can detect sourcing this way
+################################################################################
+# endregion: https://github.com/shellcheck-py/shellcheck-py/tree/v0.11.0.1-1
+################################################################################
+
+################################################################################
+# region: https://github.com/ewhauser/shuck/tree/v0.2.3
+################################################################################
+- id: shuck
+  name: shuck
+  description: Shell script linter, binary install via PyPI
+  language: system
+  entry: shuck check
+  types_or: [shell, yaml]
+- id: mise-shuck
+  name: shuck
+  description: Shell script linter, binary install via PyPI
+  language: system
+  entry: mise exec github:ewhauser/shuck -- shuck check
+  types_or: [shell, yaml]
+################################################################################
+# endregion: https://github.com/ewhauser/shuck/tree/v0.2.3
+################################################################################
+
+################################################################################
+# region: https://github.com/reteps/dockerfmt/tree/v0.5.4
+################################################################################
+- alias: dockerfmt
+  args:
+    - --write
+    - --newline
+    - --indent=4
+    - --space-redirects
+  description: Format Dockerfile files
+  entry: dockerfmt
+  files: ^.*(Container|Docker)file.*$
+  id: dockerfmt
+  language: system
+  name: dockerfmt
+  pass_filenames: true
+  require_serial: false
+  exclude: .dockerignore$
+  types_or:
+    - dockerfile
+- alias: dockerfmt
+  args:
+    - --write
+    - --newline
+    - --indent=4
+    - --space-redirects
+  description: Format Dockerfile files
+  entry: mise exec github:reteps/dockerfmt -- dockerfmt
+  files: ^.*(Container|Docker)file.*$
+  id: mise-dockerfmt
+  language: system
+  name: dockerfmt
+  pass_filenames: true
+  require_serial: false
+  exclude: .dockerignore$
+  types_or:
+    - dockerfile
+################################################################################
+# endregion: https://github.com/reteps/dockerfmt/tree/v0.5.4
+################################################################################
+
+################################################################################
+# region: https://github.com/hadolint/hadolint/tree/v2.15.1
+################################################################################
+- id: hadolint
+  name: Lint Dockerfiles
+  description: Runs hadolint to lint Dockerfiles
+  language: system
+  types: [dockerfile]
+  entry: hadolint
+- id: mise-hadolint
+  name: Lint Dockerfiles
+  description: Runs hadolint to lint Dockerfiles
+  language: system
+  types: [dockerfile]
+  entry: mise exec hadolint -- hadolint
+################################################################################
+# endregion: https://github.com/hadolint/hadolint/tree/v2.15.1
+################################################################################
+
+################################################################################
+# region: https://github.com/rvben/rumdl-pre-commit/tree/v0.2.77
+################################################################################
+- id: rumdl-fmt
+  name: rumdl fmt
+  description: Format Markdown files in place. Always exits 0; relies on pre-commit file-change detection.
+  entry: rumdl fmt
+  language: system
+  types: [markdown]
+  require_serial: true
+- id: mise-rumdl-fmt
+  name: rumdl fmt
+  description: Format Markdown files in place. Always exits 0; relies on pre-commit file-change detection.
+  entry: mise exec rumdl -- rumdl fmt
+  language: system
+  types: [markdown]
+  require_serial: true
+- id: rumdl-check
+  name: rumdl check
+  description: Lint Markdown files. Exits 1 if violations are found. Add args [--fix] to auto-fix in place.
+  entry: rumdl check
+  language: system
+  types: [markdown]
+  require_serial: true
+- id: mise-rumdl-check
+  name: rumdl check
+  description: Lint Markdown files. Exits 1 if violations are found. Add args [--fix] to auto-fix in place.
+  entry: mise exec rumdl -- rumdl check
+  language: system
+  types: [markdown]
+  require_serial: true
+################################################################################
+# endregion: https://github.com/rvben/rumdl-pre-commit/tree/v0.2.77
+################################################################################
+
+################################################################################
+# region: https://github.com/akiomik/mado/tree/v0.3.2
+################################################################################
+- id: mado
+  name: mado
+  description: A fast Markdown linter written in Rust.
+  entry: mado check
+  language: system
+  types: [markdown]
+- id: mise-mado
+  name: mado
+  description: A fast Markdown linter written in Rust.
+  entry: mise exec github:akiomik/mado -- mado check
+  language: system
+  types: [markdown]
+################################################################################
+# endregion: https://github.com/akiomik/mado/tree/v0.3.2
+################################################################################
+
+################################################################################
+# region: https://github.com/vale-cli/vale/tree/v3.23.0
+################################################################################
+- id: vale
+  name: vale
+  description: Run vale on your text
+  entry: vale
+  language: system
+  types: [markdown]
+- id: mise-vale
+  name: vale
+  description: Run vale on your text
+  entry: mise exec vale -- vale
+  language: system
+  types: [markdown]
+- id: vale-commit-msg
+  name: vale (commit message)
+  description: Run vale on the commit message
+  entry: sh -c 'vale --path=COMMIT_EDITMSG < "$1"' --
+  language: system
+  stages: [commit-msg]
+- id: mise-vale-commit-msg
+  name: vale (commit message)
+  description: Run vale on the commit message
+  entry: mise exec vale -- sh -c 'vale --path=COMMIT_EDITMSG < "$1"' --
+  language: system
+  stages: [commit-msg]
+################################################################################
+# endregion: https://github.com/vale-cli/vale/tree/v3.23.0
+################################################################################
+
+################################################################################
+# region: https://github.com/tombi-toml/tombi-pre-commit/tree/v1.5.8
+################################################################################
+- id: tombi-format
+  name: tombi-format
+  description: A TOML formatter
+  entry: tombi format
+  language: system
+  types: [toml]
+  args: [--offline]
+- id: mise-tombi-format
+  name: tombi-format
+  description: A TOML formatter
+  entry: mise exec tombi -- tombi format
+  language: system
+  types: [toml]
+  args: [--offline]
+- id: tombi-lint
+  name: tombi-lint
+  description: A TOML linter
+  entry: tombi lint
+  language: system
+  types: [toml]
+  args: [--offline]
+- id: mise-tombi-lint
+  name: tombi-lint
+  description: A TOML linter
+  entry: mise exec tombi -- tombi lint
+  language: system
+  types: [toml]
+  args: [--offline]
+################################################################################
+# endregion: https://github.com/tombi-toml/tombi-pre-commit/tree/v1.5.8
+################################################################################
+
+################################################################################
+# region: https://github.com/owenlamont/ryl-pre-commit/tree/v0.22.0
+################################################################################
+- id: ryl
+  name: ryl
+  description: Lint YAML files with the ryl CLI
+  entry: ryl check
+  language: system
+  types: [yaml]
+  minimum_pre_commit_version: 2.9.2
+  args: [--fix]
+- id: mise-ryl
+  name: ryl
+  description: Lint YAML files with the ryl CLI
+  entry: mise exec github:owenlamont/ryl -- ryl check
+  language: system
+  types: [yaml]
+  minimum_pre_commit_version: 2.9.2
+  args: [--fix]
+- id: ryl-markdown
+  name: ryl (markdown)
+  description: Lint YAML embedded in Markdown (front matter + fenced yaml blocks)
+  entry: ryl check --markdown
+  language: system
+  files: \.(md|markdown|mdx|qmd|Rmd)$
+  minimum_pre_commit_version: 2.9.2
+  args: [--fix]
+- id: mise-ryl-markdown
+  name: ryl (markdown)
+  description: Lint YAML embedded in Markdown (front matter + fenced yaml blocks)
+  entry: mise exec github:owenlamont/ryl -- ryl check --markdown
+  language: system
+  files: \.(md|markdown|mdx|qmd|Rmd)$
+  minimum_pre_commit_version: 2.9.2
+  args: [--fix]
+################################################################################
+# endregion: https://github.com/owenlamont/ryl-pre-commit/tree/v0.22.0
+################################################################################
