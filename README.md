@@ -35,7 +35,7 @@ Every hook comes in two variants:
 
 Plain hooks need the tool on `PATH`, and `mise-` hooks need mise installed. A
 few hooks call other programs too: `ty` runs `uv`, `vale-commit-msg` runs `sh`,
-and the `oxfmt` hooks need `node`.
+and the `oxfmt` hooks and `renovate-config-validator` need `node`.
 
 If a plain hook fails with `command not found`, the tool isn't on `PATH`. This
 often happens when you commit from an IDE or git GUI without the virtual
@@ -46,7 +46,7 @@ environment active. Use the `mise-` variant instead.
 ```yaml
 repos:
   - repo: https://github.com/FlavioAmurrioCS/system-hooks
-    rev: v2026.09.28
+    rev: v2026.09.28 # Run `pre-commit autoupdate` to get the latest
     hooks:
       - id: ruff-check
       - id: ruff-format
@@ -87,6 +87,12 @@ variants, which only need mise.
 | `vale` | `vale`, `vale-commit-msg` | [vale-cli/vale](https://github.com/vale-cli/vale) |
 | `tombi` | `tombi-format`, `tombi-lint` | [tombi-toml/tombi-pre-commit](https://github.com/tombi-toml/tombi-pre-commit) |
 | `ryl` | `ryl`, `ryl-markdown` | [owenlamont/ryl-pre-commit](https://github.com/owenlamont/ryl-pre-commit) |
+| `jsonschema` | `sourcemeta-jsonschema-lint` | [sourcemeta/jsonschema](https://github.com/sourcemeta/jsonschema) |
+| `pre-commit-hooks` | `trailing-whitespace`, `end-of-file-fixer`, `check-yaml`, `check-added-large-files`, `name-tests-test` | [pre-commit/pre-commit-hooks](https://github.com/pre-commit/pre-commit-hooks) |
+| `check-jsonschema` | `check-jsonschema`, `check-metaschema` | [python-jsonschema/check-jsonschema](https://github.com/python-jsonschema/check-jsonschema) |
+| `uv` | `pip-compile`, `uv-lock`, `uv-export`, `uv-sync`, `uv-audit` | [astral-sh/uv-pre-commit](https://github.com/astral-sh/uv-pre-commit) |
+| `uv-to-pipfile` | `uv-to-pipfile` | [FlavioAmurrioCS/uv-to-pipfile](https://github.com/FlavioAmurrioCS/uv-to-pipfile) |
+| `renovate` | `renovate-config-validator` | [renovatebot/pre-commit-hooks](https://github.com/renovatebot/pre-commit-hooks) |
 
 Each id also has a `mise-` variant. See
 [`.pre-commit-hooks.yaml`](.pre-commit-hooks.yaml) for the full definitions.
@@ -95,12 +101,41 @@ Each id also has a `mise-` variant. See
 
 - Override `args`, `files`, `types` and other options in your configuration as
   usual.
-- A few hooks change upstream defaults: `ruff-check`, `ryl` and `ryl-markdown`
-  run with `--fix`, and the `tombi` hooks run with `--offline`, so they only use
-  schemas that `tombi` already cached.
+- A few hooks change upstream defaults, listed in the next section.
+- `check-jsonschema` matches every JSON and YAML file and fails without a
+  schema. Pass one, for example `args: [--schemafile, schema.json]` or
+  `args: [--builtin-schema, vendor.github-workflows]`, and set `files:` to the
+  files it applies to.
+- `check-metaschema` and `sourcemeta-jsonschema-lint` also match every JSON and
+  YAML file, and report the ones that aren't JSON Schemas as invalid. Set
+  `files:` to your schema files.
 - Some hooks overlap. For example, `ruff-format` and `rumdl-fmt` both format
   Markdown, and `ryl` fixes YAML files that `oxfmt-yaml` also formats. Pick one
   per file type.
+
+## Changed defaults
+
+These hooks don't use the upstream defaults. The `mise-` variants have the same
+changes.
+
+| Hook ids | Upstream | This repository | Effect |
+| --- | --- | --- | --- |
+| `ruff-check` | `args: []` | `args: [--fix, --unsafe-fixes]` | Applies all fixes on commit, including [unsafe ones](https://docs.astral.sh/ruff/linter/#fix-safety) that can change behavior. |
+| `shfmt` | `args: [--write]` | `args: [--indent=4, --case-indent, --space-redirects, --write]` | Formats with 4-space indents, indented `case` branches and a space after redirect operators. Because the command line sets formatting flags, `shfmt` ignores `.editorconfig`. |
+| `ryl`, `ryl-markdown` | no `args` | `args: [--fix]` | Fixes YAML in place. |
+| `tombi-format`, `tombi-lint` | no `args` | `args: [--offline]` | Only uses schemas that `tombi` already cached. |
+| `vale` | `types: [text]` | `types: [markdown]` | Only checks Markdown files. |
+
+To get the upstream behavior back, set the upstream value in your
+configuration. Your `args` or `types` replace these values instead of adding to
+them:
+
+```yaml
+- id: ruff-check
+  args: []
+- id: shfmt
+  args: [--write]
+```
 
 ## Maintaining
 

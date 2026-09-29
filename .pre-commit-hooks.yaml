@@ -9,7 +9,7 @@
   entry: ruff check --force-exclude
   language: system
   types_or: [python, pyi, jupyter]
-  args: [--fix]
+  args: [--fix, --unsafe-fixes]
   require_serial: true
   minimum_pre_commit_version: 2.9.2
 - id: mise-ruff-check
@@ -18,7 +18,7 @@
   entry: mise exec ruff -- ruff check --force-exclude
   language: system
   types_or: [python, pyi, jupyter]
-  args: [--fix]
+  args: [--fix, --unsafe-fixes]
   require_serial: true
   minimum_pre_commit_version: 2.9.2
 - id: ruff-format
@@ -89,7 +89,7 @@
 ################################################################################
 
 ################################################################################
-# region: https://github.com/oxc-project/mirrors-oxfmt/tree/v0.70.0
+# region: https://github.com/oxc-project/mirrors-oxfmt/tree/v0.71.0
 ################################################################################
 - id: oxfmt
   name: oxfmt
@@ -110,11 +110,11 @@
   require_serial: false
   minimum_pre_commit_version: 2.9.2
 ################################################################################
-# endregion: https://github.com/oxc-project/mirrors-oxfmt/tree/v0.70.0
+# endregion: https://github.com/oxc-project/mirrors-oxfmt/tree/v0.71.0
 ################################################################################
 
 ################################################################################
-# region: https://github.com/oxc-project/mirrors-oxlint/tree/v1.85.0
+# region: https://github.com/oxc-project/mirrors-oxlint/tree/v1.86.0
 ################################################################################
 - id: oxlint
   name: oxlint
@@ -135,7 +135,7 @@
   require_serial: false
   minimum_pre_commit_version: 2.9.2
 ################################################################################
-# endregion: https://github.com/oxc-project/mirrors-oxlint/tree/v1.85.0
+# endregion: https://github.com/oxc-project/mirrors-oxlint/tree/v1.86.0
 ################################################################################
 
 ################################################################################
@@ -206,7 +206,7 @@
   description: Shell source code formatter (prebuilt upstream executable)
   language: system
   entry: shfmt
-  args: [--write]
+  args: [--indent=4, --case-indent, --space-redirects, --write]
   types: [shell]
   exclude_types: [csh, tcsh]
   stages: [pre-commit, pre-merge-commit, pre-push, manual]
@@ -216,7 +216,7 @@
   description: Shell source code formatter (prebuilt upstream executable)
   language: system
   entry: mise exec shfmt -- shfmt
-  args: [--write]
+  args: [--indent=4, --case-indent, --space-redirects, --write]
   types: [shell]
   exclude_types: [csh, tcsh]
   stages: [pre-commit, pre-merge-commit, pre-push, manual]
@@ -539,4 +539,284 @@
   args: [--fix]
 ################################################################################
 # endregion: https://github.com/owenlamont/ryl-pre-commit/tree/v0.22.0
+################################################################################
+
+################################################################################
+# region: https://github.com/sourcemeta/jsonschema/tree/v17.0.0
+################################################################################
+- id: sourcemeta-jsonschema-lint
+  name: sourcemeta-jsonschema-lint
+  description: Lint schema files
+  entry: jsonschema lint
+  language: system
+  types_or: [json, yaml]
+  minimum_pre_commit_version: 2.9.0
+- id: mise-sourcemeta-jsonschema-lint
+  name: sourcemeta-jsonschema-lint
+  description: Lint schema files
+  entry: mise exec jsonschema -- jsonschema lint
+  language: system
+  types_or: [json, yaml]
+  minimum_pre_commit_version: 2.9.0
+################################################################################
+# endregion: https://github.com/sourcemeta/jsonschema/tree/v17.0.0
+################################################################################
+
+################################################################################
+# region: https://github.com/pre-commit/pre-commit-hooks/tree/v6.0.0
+################################################################################
+- id: trailing-whitespace
+  name: trim trailing whitespace
+  description: trims trailing whitespace.
+  entry: trailing-whitespace-fixer
+  language: system
+  types: [text]
+  stages: [pre-commit, pre-push, manual]
+  minimum_pre_commit_version: 3.2.0
+- id: mise-trailing-whitespace
+  name: trim trailing whitespace
+  description: trims trailing whitespace.
+  entry: mise exec pypi:pre-commit-hooks -- trailing-whitespace-fixer
+  language: system
+  types: [text]
+  stages: [pre-commit, pre-push, manual]
+  minimum_pre_commit_version: 3.2.0
+- id: end-of-file-fixer
+  name: fix end of files
+  description: ensures that a file is either empty, or ends with one newline.
+  entry: end-of-file-fixer
+  language: system
+  types: [text]
+  stages: [pre-commit, pre-push, manual]
+  minimum_pre_commit_version: 3.2.0
+- id: mise-end-of-file-fixer
+  name: fix end of files
+  description: ensures that a file is either empty, or ends with one newline.
+  entry: mise exec pypi:pre-commit-hooks -- end-of-file-fixer
+  language: system
+  types: [text]
+  stages: [pre-commit, pre-push, manual]
+  minimum_pre_commit_version: 3.2.0
+- id: check-yaml
+  name: check yaml
+  description: checks yaml files for parseable syntax.
+  entry: check-yaml
+  language: system
+  types: [yaml]
+- id: mise-check-yaml
+  name: check yaml
+  description: checks yaml files for parseable syntax.
+  entry: mise exec pypi:pre-commit-hooks -- check-yaml
+  language: system
+  types: [yaml]
+- id: check-added-large-files
+  name: check for added large files
+  description: prevents giant files from being committed.
+  entry: check-added-large-files
+  language: system
+  stages: [pre-commit, pre-push, manual]
+  minimum_pre_commit_version: 3.2.0
+- id: mise-check-added-large-files
+  name: check for added large files
+  description: prevents giant files from being committed.
+  entry: mise exec pypi:pre-commit-hooks -- check-added-large-files
+  language: system
+  stages: [pre-commit, pre-push, manual]
+  minimum_pre_commit_version: 3.2.0
+- id: name-tests-test
+  name: python tests naming
+  description: verifies that test files are named correctly.
+  entry: name-tests-test
+  language: system
+  files: (^|/)tests/.+\.py$
+- id: mise-name-tests-test
+  name: python tests naming
+  description: verifies that test files are named correctly.
+  entry: mise exec pypi:pre-commit-hooks -- name-tests-test
+  language: system
+  files: (^|/)tests/.+\.py$
+################################################################################
+# endregion: https://github.com/pre-commit/pre-commit-hooks/tree/v6.0.0
+################################################################################
+
+################################################################################
+# region: https://github.com/python-jsonschema/check-jsonschema/tree/0.38.2
+################################################################################
+- id: check-jsonschema
+  name: Validate files with jsonschema
+  description: Validate JSON or YAML files against a jsonschema on disk or fetched via HTTP(S)
+  entry: check-jsonschema
+  language: system
+  types_or: [json, yaml]
+  # we need types_or support
+  minimum_pre_commit_version: 2.9.0
+- id: mise-check-jsonschema
+  name: Validate files with jsonschema
+  description: Validate JSON or YAML files against a jsonschema on disk or fetched via HTTP(S)
+  entry: mise exec pypi:check-jsonschema -- check-jsonschema
+  language: system
+  types_or: [json, yaml]
+  # we need types_or support
+  minimum_pre_commit_version: 2.9.0
+- id: check-metaschema
+  name: Validate JSON Schema files
+  description: Validate JSON Schema files against their matching metaschema
+  entry: check-jsonschema --check-metaschema
+  language: system
+  types_or: [json, yaml]
+  # we need types_or support
+  minimum_pre_commit_version: 2.9.0
+- id: mise-check-metaschema
+  name: Validate JSON Schema files
+  description: Validate JSON Schema files against their matching metaschema
+  entry: mise exec pypi:check-jsonschema -- check-jsonschema --check-metaschema
+  language: system
+  types_or: [json, yaml]
+  # we need types_or support
+  minimum_pre_commit_version: 2.9.0
+################################################################################
+# endregion: https://github.com/python-jsonschema/check-jsonschema/tree/0.38.2
+################################################################################
+
+################################################################################
+# region: https://github.com/astral-sh/uv-pre-commit/tree/0.12.19
+################################################################################
+- id: pip-compile
+  name: pip-compile
+  description: Automatically run 'uv pip compile' on your requirements
+  entry: uv pip compile
+  language: system
+  files: ^requirements\.(in|txt)$
+  args: []
+  pass_filenames: false
+  minimum_pre_commit_version: 2.9.2
+- id: mise-pip-compile
+  name: pip-compile
+  description: Automatically run 'uv pip compile' on your requirements
+  entry: mise exec uv -- uv pip compile
+  language: system
+  files: ^requirements\.(in|txt)$
+  args: []
+  pass_filenames: false
+  minimum_pre_commit_version: 2.9.2
+- id: uv-lock
+  name: uv-lock
+  description: Automatically run 'uv lock' on your project dependencies
+  entry: uv lock
+  language: system
+  files: ^(uv\.lock|pyproject\.toml|uv\.toml)$
+  args: []
+  pass_filenames: false
+  minimum_pre_commit_version: 2.9.2
+- id: mise-uv-lock
+  name: uv-lock
+  description: Automatically run 'uv lock' on your project dependencies
+  entry: mise exec uv -- uv lock
+  language: system
+  files: ^(uv\.lock|pyproject\.toml|uv\.toml)$
+  args: []
+  pass_filenames: false
+  minimum_pre_commit_version: 2.9.2
+- id: uv-export
+  name: uv-export
+  description: Automatically run 'uv export' on your project dependencies
+  entry: uv export
+  language: system
+  files: ^uv\.lock$
+  args: [--frozen, --output-file=requirements.txt, --quiet]
+  pass_filenames: false
+  minimum_pre_commit_version: 2.9.2
+- id: mise-uv-export
+  name: uv-export
+  description: Automatically run 'uv export' on your project dependencies
+  entry: mise exec uv -- uv export
+  language: system
+  files: ^uv\.lock$
+  args: [--frozen, --output-file=requirements.txt, --quiet]
+  pass_filenames: false
+  minimum_pre_commit_version: 2.9.2
+- id: uv-sync
+  name: uv-sync
+  description: Automatically run 'uv sync' on your repository after a checkout, pull or rebase
+  entry: uv sync --no-active
+  args: [--locked]
+  language: system
+  always_run: true
+  pass_filenames: false
+  stages: [post-checkout, post-merge, post-rewrite]
+  minimum_pre_commit_version: 2.9.2
+- id: mise-uv-sync
+  name: uv-sync
+  description: Automatically run 'uv sync' on your repository after a checkout, pull or rebase
+  entry: mise exec uv -- uv sync --no-active
+  args: [--locked]
+  language: system
+  always_run: true
+  pass_filenames: false
+  stages: [post-checkout, post-merge, post-rewrite]
+  minimum_pre_commit_version: 2.9.2
+- id: uv-audit
+  name: uv-audit
+  description: Automatically run 'uv audit' on your project dependencies
+  entry: uv audit
+  language: system
+  files: ^(uv\.lock|pyproject\.toml|uv\.toml)$
+  args: []
+  pass_filenames: false
+  minimum_pre_commit_version: 2.9.2
+- id: mise-uv-audit
+  name: uv-audit
+  description: Automatically run 'uv audit' on your project dependencies
+  entry: mise exec uv -- uv audit
+  language: system
+  files: ^(uv\.lock|pyproject\.toml|uv\.toml)$
+  args: []
+  pass_filenames: false
+  minimum_pre_commit_version: 2.9.2
+################################################################################
+# endregion: https://github.com/astral-sh/uv-pre-commit/tree/0.12.19
+################################################################################
+
+################################################################################
+# region: https://github.com/FlavioAmurrioCS/uv-to-pipfile/tree/v0.0.7
+################################################################################
+- id: uv-to-pipfile
+  name: Convert uv files to Pipfile
+  description: Convert uv files to Pipfile
+  entry: uv-to-pipfile
+  language: system
+  files: uv.lock
+  always_run: true
+  pass_filenames: false
+- id: mise-uv-to-pipfile
+  name: Convert uv files to Pipfile
+  description: Convert uv files to Pipfile
+  entry: mise exec pypi:uv-to-pipfile -- uv-to-pipfile
+  language: system
+  files: uv.lock
+  always_run: true
+  pass_filenames: false
+################################################################################
+# endregion: https://github.com/FlavioAmurrioCS/uv-to-pipfile/tree/v0.0.7
+################################################################################
+
+################################################################################
+# region: https://github.com/renovatebot/pre-commit-hooks/tree/44.117.0
+################################################################################
+- id: renovate-config-validator
+  name: renovate-config-validator
+  description: Validate Renovate config
+  minimum_pre_commit_version: 3.6.0
+  language: system
+  entry: renovate-config-validator
+  files: (^|/).?renovate(?:rc)?(?:\.json[c5]?)?$
+- id: mise-renovate-config-validator
+  name: renovate-config-validator
+  description: Validate Renovate config
+  minimum_pre_commit_version: 3.6.0
+  language: system
+  entry: mise exec npm:renovate node -- renovate-config-validator
+  files: (^|/).?renovate(?:rc)?(?:\.json[c5]?)?$
+################################################################################
+# endregion: https://github.com/renovatebot/pre-commit-hooks/tree/44.117.0
 ################################################################################

@@ -181,3 +181,6 @@ temp/
 uv.lock
 requirements.txt
 .rumdl_cache
+Pipfile.lock
+Pipfile
+.python-version
