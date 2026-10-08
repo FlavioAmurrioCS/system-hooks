@@ -10,20 +10,23 @@ ci:
     - check-metaschema
     - renovate-config-validator
     - uv-audit
+    - taplo-lint
+    - taplo-format
 exclude: ^styles/(Google|write-good|proselint)/
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.16.9
+    rev: v0.16.10
     mise_tools: [ruff]
     hooks:
       - id: ruff-check
         args: [--fix, --unsafe-fixes]
       - id: ruff-format
   - repo: https://github.com/astral-sh/ty-pre-commit
-    rev: v0.0.84
+    rev: v0.0.85
     mise_tools: [uv]
     hooks:
       - id: ty
+        entry: uv check --quiet --preview-features=check-command
   - repo: https://github.com/oxc-project/mirrors-oxfmt
     rev: v0.71.0
     mise_tools: [oxfmt, node]
@@ -102,7 +105,7 @@ repos:
     hooks:
       - id: hadolint
   - repo: https://github.com/rvben/rumdl-pre-commit
-    rev: v0.2.77
+    rev: v0.2.78
     mise_tools: [rumdl]
     hooks:
       - id: rumdl-fmt
@@ -113,14 +116,14 @@ repos:
     hooks:
       - id: mado
   - repo: https://github.com/vale-cli/vale
-    rev: v3.23.0
+    rev: v3.24.0
     mise_tools: [vale]
     hooks:
       - id: vale
         types: [markdown]
       - id: vale-commit-msg
   - repo: https://github.com/tombi-toml/tombi-pre-commit
-    rev: v1.5.8
+    rev: v1.7.3
     mise_tools: [tombi]
     hooks:
       - id: tombi-format
@@ -128,7 +131,7 @@ repos:
       - id: tombi-lint
         args: [--offline]
   - repo: https://github.com/owenlamont/ryl-pre-commit
-    rev: v0.22.0
+    rev: v0.24.0
     mise_tools: [github:owenlamont/ryl]
     hooks:
       - id: ryl
@@ -136,7 +139,7 @@ repos:
       - id: ryl-markdown
         args: [--fix]
   - repo: https://github.com/sourcemeta/jsonschema
-    rev: v17.0.0
+    rev: v17.2.0
     mise_tools: [jsonschema]
     hooks:
       - id: sourcemeta-jsonschema-lint
@@ -156,7 +159,7 @@ repos:
       - id: check-jsonschema
       - id: check-metaschema
   - repo: https://github.com/astral-sh/uv-pre-commit
-    rev: 0.12.19
+    rev: 0.12.23
     mise_tools: [uv]
     hooks:
       - id: pip-compile
@@ -170,7 +173,14 @@ repos:
     hooks:
       - id: uv-to-pipfile
   - repo: https://github.com/renovatebot/pre-commit-hooks
-    rev: 44.117.0
+    rev: 44.146.1
     mise_tools: [npm:renovate, node]
     hooks:
       - id: renovate-config-validator
+  - repo: https://github.com/ComPWA/taplo-pre-commit
+    rev: v0.9.3
+    mise_tools: [taplo]
+    hooks:
+      - id: taplo-format
+      - id: taplo-lint
+        args: []
