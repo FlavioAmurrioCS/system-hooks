@@ -10,6 +10,11 @@ on:
 
 permissions: {}
 
+# Runs for the same ref wait for each other, so a release is never cancelled.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   test:
     permissions:
@@ -26,6 +31,7 @@ jobs:
           # - macos-latest
           # - windows-latest
     runs-on: ${{ matrix.platform }}
+    timeout-minutes: 10
     env:
       UV_PYTHON: ${{ matrix.python-version }}
     steps:
@@ -49,6 +55,7 @@ jobs:
     needs:
       - test
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     permissions:
       contents: read
     steps:
@@ -76,6 +83,7 @@ jobs:
     needs:
       - build
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     environment: pypi
     permissions:
       id-token: write # IMPORTANT: mandatory for trusted publishing
@@ -95,6 +103,7 @@ jobs:
     needs:
       - build
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     permissions:
       contents: write # IMPORTANT: mandatory for making GitHub Releases

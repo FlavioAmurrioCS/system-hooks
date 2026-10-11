@@ -15,14 +15,14 @@ ci:
 exclude: ^styles/(Google|write-good|proselint)/
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.16.10
+    rev: v0.17.0
     mise_tools: [ruff]
     hooks:
       - id: ruff-check
         args: [--fix, --unsafe-fixes]
       - id: ruff-format
   - repo: https://github.com/astral-sh/ty-pre-commit
-    rev: v0.0.85
+    rev: v0.0.86
     mise_tools: [uv]
     hooks:
       - id: ty
@@ -90,7 +90,7 @@ repos:
     hooks:
       - id: shellcheck
   - repo: https://github.com/ewhauser/shuck
-    rev: v0.2.3
+    rev: v0.2.4
     mise_tools: [github:ewhauser/shuck]
     hooks:
       - id: shuck
@@ -105,7 +105,7 @@ repos:
     hooks:
       - id: hadolint
   - repo: https://github.com/rvben/rumdl-pre-commit
-    rev: v0.2.78
+    rev: v0.2.79
     mise_tools: [rumdl]
     hooks:
       - id: rumdl-fmt
@@ -123,7 +123,7 @@ repos:
         types: [markdown]
       - id: vale-commit-msg
   - repo: https://github.com/tombi-toml/tombi-pre-commit
-    rev: v1.7.3
+    rev: v1.8.0
     mise_tools: [tombi]
     hooks:
       - id: tombi-format
@@ -159,7 +159,7 @@ repos:
       - id: check-jsonschema
       - id: check-metaschema
   - repo: https://github.com/astral-sh/uv-pre-commit
-    rev: 0.12.23
+    rev: 0.13.0
     mise_tools: [uv]
     hooks:
       - id: pip-compile
@@ -173,7 +173,7 @@ repos:
     hooks:
       - id: uv-to-pipfile
   - repo: https://github.com/renovatebot/pre-commit-hooks
-    rev: 44.146.1
+    rev: 44.149.3
     mise_tools: [npm:renovate, node]
     hooks:
       - id: renovate-config-validator
@@ -184,3 +184,8 @@ repos:
       - id: taplo-format
       - id: taplo-lint
         args: []
+  - repo: https://github.com/jdx/jactionlint
+    rev: v2.1.0
+    mise_tools: [jactionlint]
+    hooks:
+      - id: jactionlint

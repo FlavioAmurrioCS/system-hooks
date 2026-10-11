@@ -75,6 +75,7 @@ variants, which only need mise.
 | `oxfmt` | `oxfmt`, `oxfmt-yaml`, `oxfmt-json` | [oxc-project/mirrors-oxfmt](https://github.com/oxc-project/mirrors-oxfmt) |
 | `oxlint` | `oxlint` | [oxc-project/mirrors-oxlint](https://github.com/oxc-project/mirrors-oxlint) |
 | `actionlint` | `actionlint` | [rhysd/actionlint](https://github.com/rhysd/actionlint) |
+| `jactionlint` | `jactionlint` | [jdx/jactionlint](https://github.com/jdx/jactionlint) |
 | `zizmor` | `zizmor` | [zizmorcore/zizmor-pre-commit](https://github.com/zizmorcore/zizmor-pre-commit) |
 | `shfmt` | `shfmt` | [scop/pre-commit-shfmt](https://github.com/scop/pre-commit-shfmt) |
 | `bash` | `bash-syntax-check` | local |
@@ -111,8 +112,9 @@ Each id also has a `mise-` variant. See
   YAML file, and report the ones that aren't JSON Schemas as invalid. Set
   `files:` to your schema files.
 - Some hooks overlap. For example, `ruff-format` and `rumdl-fmt` both format
-  Markdown, `ryl` fixes YAML files that `oxfmt-yaml` also formats, and `taplo`
-  and `tombi` both format and lint TOML. Pick one per file type.
+  Markdown, `ryl` fixes YAML files that `oxfmt-yaml` also formats, `taplo` and
+  `tombi` both format and lint TOML, and `actionlint` and `jactionlint` both
+  lint GitHub Actions workflows. Pick one per file type.
 
 ## Changed defaults
 

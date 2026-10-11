@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://www.schemastore.org/pre-commit-hooks.json
 ---
 ################################################################################
-# region: https://github.com/astral-sh/ruff-pre-commit/tree/v0.16.10
+# region: https://github.com/astral-sh/ruff-pre-commit/tree/v0.17.0
 ################################################################################
 - id: ruff-check
   name: ruff check
@@ -40,11 +40,11 @@
   require_serial: true
   minimum_pre_commit_version: 2.9.2
 ################################################################################
-# endregion: https://github.com/astral-sh/ruff-pre-commit/tree/v0.16.10
+# endregion: https://github.com/astral-sh/ruff-pre-commit/tree/v0.17.0
 ################################################################################
 
 ################################################################################
-# region: https://github.com/astral-sh/ty-pre-commit/tree/v0.0.85
+# region: https://github.com/astral-sh/ty-pre-commit/tree/v0.0.86
 ################################################################################
 - id: ty
   name: ty
@@ -85,7 +85,7 @@
   require_serial: true
   minimum_pre_commit_version: 2.9.2
 ################################################################################
-# endregion: https://github.com/astral-sh/ty-pre-commit/tree/v0.0.85
+# endregion: https://github.com/astral-sh/ty-pre-commit/tree/v0.0.86
 ################################################################################
 
 ################################################################################
@@ -304,7 +304,7 @@
 ################################################################################
 
 ################################################################################
-# region: https://github.com/ewhauser/shuck/tree/v0.2.3
+# region: https://github.com/ewhauser/shuck/tree/v0.2.4
 ################################################################################
 - id: shuck
   name: shuck
@@ -319,7 +319,7 @@
   entry: mise exec github:ewhauser/shuck -- shuck check
   types_or: [shell, yaml]
 ################################################################################
-# endregion: https://github.com/ewhauser/shuck/tree/v0.2.3
+# endregion: https://github.com/ewhauser/shuck/tree/v0.2.4
 ################################################################################
 
 ################################################################################
@@ -383,7 +383,7 @@
 ################################################################################
 
 ################################################################################
-# region: https://github.com/rvben/rumdl-pre-commit/tree/v0.2.78
+# region: https://github.com/rvben/rumdl-pre-commit/tree/v0.2.79
 ################################################################################
 - id: rumdl-fmt
   name: rumdl fmt
@@ -414,7 +414,7 @@
   types: [markdown]
   require_serial: true
 ################################################################################
-# endregion: https://github.com/rvben/rumdl-pre-commit/tree/v0.2.78
+# endregion: https://github.com/rvben/rumdl-pre-commit/tree/v0.2.79
 ################################################################################
 
 ################################################################################
@@ -468,7 +468,7 @@
 ################################################################################
 
 ################################################################################
-# region: https://github.com/tombi-toml/tombi-pre-commit/tree/v1.7.3
+# region: https://github.com/tombi-toml/tombi-pre-commit/tree/v1.8.0
 ################################################################################
 - id: tombi-format
   name: tombi-format
@@ -499,7 +499,7 @@
   types: [toml]
   args: [--offline]
 ################################################################################
-# endregion: https://github.com/tombi-toml/tombi-pre-commit/tree/v1.7.3
+# endregion: https://github.com/tombi-toml/tombi-pre-commit/tree/v1.8.0
 ################################################################################
 
 ################################################################################
@@ -679,7 +679,7 @@
 ################################################################################
 
 ################################################################################
-# region: https://github.com/astral-sh/uv-pre-commit/tree/0.12.23
+# region: https://github.com/astral-sh/uv-pre-commit/tree/0.13.0
 ################################################################################
 - id: pip-compile
   name: pip-compile
@@ -774,7 +774,7 @@
   pass_filenames: false
   minimum_pre_commit_version: 2.9.2
 ################################################################################
-# endregion: https://github.com/astral-sh/uv-pre-commit/tree/0.12.23
+# endregion: https://github.com/astral-sh/uv-pre-commit/tree/0.13.0
 ################################################################################
 
 ################################################################################
@@ -801,7 +801,7 @@
 ################################################################################
 
 ################################################################################
-# region: https://github.com/renovatebot/pre-commit-hooks/tree/44.146.1
+# region: https://github.com/renovatebot/pre-commit-hooks/tree/44.149.3
 ################################################################################
 - id: renovate-config-validator
   name: renovate-config-validator
@@ -818,7 +818,7 @@
   entry: mise exec npm:renovate node -- renovate-config-validator
   files: (^|/).?renovate(?:rc)?(?:\.json[c5]?)?$
 ################################################################################
-# endregion: https://github.com/renovatebot/pre-commit-hooks/tree/44.146.1
+# endregion: https://github.com/renovatebot/pre-commit-hooks/tree/44.149.3
 ################################################################################
 
 ################################################################################
@@ -864,4 +864,27 @@
   minimum_pre_commit_version: "0"
 ################################################################################
 # endregion: https://github.com/ComPWA/taplo-pre-commit/tree/v0.9.3
+################################################################################
+
+################################################################################
+# region: https://github.com/jdx/jactionlint/tree/v2.1.0
+################################################################################
+- id: jactionlint
+  name: Lint GitHub Actions workflow files
+  description: Runs jactionlint to lint GitHub Actions workflow files
+  language: system
+  types: [yaml]
+  files: ^\.github/workflows/
+  entry: jactionlint
+  minimum_pre_commit_version: 3.0.0
+- id: mise-jactionlint
+  name: Lint GitHub Actions workflow files
+  description: Runs jactionlint to lint GitHub Actions workflow files
+  language: system
+  types: [yaml]
+  files: ^\.github/workflows/
+  entry: mise exec jactionlint -- jactionlint
+  minimum_pre_commit_version: 3.0.0
+################################################################################
+# endregion: https://github.com/jdx/jactionlint/tree/v2.1.0
 ################################################################################
