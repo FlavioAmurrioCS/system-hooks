@@ -8,6 +8,7 @@
 # ///
 from __future__ import annotations
 
+import datetime as dt
 import shlex
 import subprocess
 import tempfile
@@ -72,6 +73,8 @@ region_end = Template("""
 ################################################################################
 # endregion: ${title}
 ################################################################################\n\n""")
+UPDATED_PREFIX = "# Updated: "
+OUTPUT_FILE = ".pre-commit-hooks.yaml"
 
 
 def strip_trailing_comments(node: object) -> None:
@@ -113,6 +116,24 @@ def fetch_remote_file(*, url: str, rev: str, path: str = ".pre-commit-hooks.yaml
         return git("show", f"FETCH_HEAD:{path}")
 
 
+def without_updated_line(text: str) -> list[str]:
+    """Lines to compare between runs: no date line, and no indentation formatters change."""
+    return [line.strip() for line in text.splitlines() if not line.startswith(UPDATED_PREFIX)]
+
+
+def updated_date(new_text: str) -> str:
+    """Keep the previous date unless the hooks or sources changed."""
+    try:
+        with open(OUTPUT_FILE) as f:
+            old_text = f.read()
+    except FileNotFoundError:
+        old_text = ""
+    old_dates = [line for line in old_text.splitlines() if line.startswith(UPDATED_PREFIX)]
+    if old_dates and without_updated_line(old_text) == without_updated_line(new_text):
+        return old_dates[0].removeprefix(UPDATED_PREFIX)
+    return dt.datetime.now(dt.UTC).date().isoformat()
+
+
 def main() -> None:  # noqa: PLR0915
     yaml = LAZY.yaml
     with open(".pre-commit-config.yaml") as f:
@@ -125,11 +146,16 @@ def main() -> None:  # noqa: PLR0915
     ---
     """)
     )
-    for pre_commit_config_repo in pre_commit_config["repos"]:
+    sources: list[str] = []
+    for pre_commit_config_repo in sorted(
+        pre_commit_config["repos"], key=lambda x: x["repo"].lower()
+    ):
         global_mise_tools = pre_commit_config_repo.pop("mise_tools", None) or []
         pre_commit_hooks: list[PreCommitConfigRepoHook] = []
         if "rev" not in pre_commit_config_repo:
-            for local_hook in pre_commit_config_repo["hooks"]:
+            for local_hook in sorted(
+                pre_commit_config_repo["hooks"], key=lambda x: x["id"].lower()
+            ):
                 mise_tools = local_hook.pop("mise_tools", None) or global_mise_tools
                 local_hook["language"] = "system"
                 local_hook.pop("additional_dependencies", None)
@@ -152,18 +178,20 @@ def main() -> None:  # noqa: PLR0915
             upstream_pre_commit_hooks: list[PreCommitConfigRepoHook] = yaml.load(
                 upstream_pre_commit_hooks_text
             )
-            title = f"{pre_commit_config_repo['repo'].removesuffix('.git').rstrip('/')}/tree/{pre_commit_config_repo['rev']}"  # noqa: E501
+            title = pre_commit_config_repo["repo"].removesuffix(".git").rstrip("/")
+            sources.append(f"{title} {pre_commit_config_repo['rev']}")
             upstream_pre_commit_hooks_map = {hook["id"]: hook for hook in upstream_pre_commit_hooks}
-            for pre_commit_config_repo_hook in pre_commit_config_repo["hooks"]:
+            for pre_commit_config_repo_hook in sorted(
+                pre_commit_config_repo["hooks"], key=lambda x: x["id"].lower()
+            ):
                 if pre_commit_config_repo_hook["id"] not in upstream_pre_commit_hooks_map:
                     # Hook doesnt exist upstream
                     continue
                 upstream_pre_commit_hooks_hook = upstream_pre_commit_hooks_map[
                     pre_commit_config_repo_hook["id"]
                 ]
-                for k, v in pre_commit_config_repo_hook.items():
-                    # Here is where we combining
-                    upstream_pre_commit_hooks_hook[k] = v
+                # Here is where we combining
+                upstream_pre_commit_hooks_hook.update(pre_commit_config_repo_hook)
                 upstream_pre_commit_hooks_hook["language"] = "system"
                 upstream_pre_commit_hooks_hook.pop("additional_dependencies", None)
                 upstream_pre_commit_hooks_hook.pop("language_version", None)
@@ -189,8 +217,15 @@ def main() -> None:  # noqa: PLR0915
         pre_commit_hooks.clear()
         buf.write(region_end.safe_substitute(title=title))
 
-    with open(".pre-commit-hooks.yaml", "w") as f:
-        f.write(buf.getvalue().rstrip() + "\n")
+    buf.write("#" * 80 + "\n# Sources\n")
+    buf.writelines(f"#   {source}\n" for source in sources)
+    buf.write("#" * 80 + "\n")
+
+    text = buf.getvalue().rstrip() + "\n"
+    header, sep, body = text.partition("---\n")
+    text = f"{header}{sep}{UPDATED_PREFIX}{updated_date(text)}\n{body}"
+    with open(OUTPUT_FILE, "w") as f:
+        f.write(text)
 
 
 if __name__ == "__main__":

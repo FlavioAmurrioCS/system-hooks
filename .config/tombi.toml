@@ -1,5 +1,8 @@
 #:schema https://www.schemastore.org/tombi.json
 
+[files]
+exclude = ["uv.lock", "mise.lock"]
+
 [lint.rules]
 tables-out-of-order = "off"
 

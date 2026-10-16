@@ -72,6 +72,7 @@ variants, which only need mise.
 | --- | --- | --- |
 | `ruff` | `ruff-check`, `ruff-format` | [astral-sh/ruff-pre-commit](https://github.com/astral-sh/ruff-pre-commit) |
 | `ty` | `ty` | [astral-sh/ty-pre-commit](https://github.com/astral-sh/ty-pre-commit) |
+| `pyrefly` | `pyrefly-check` | [`facebook/pyrefly-pre-commit`](https://github.com/facebook/pyrefly-pre-commit) |
 | `oxfmt` | `oxfmt`, `oxfmt-yaml`, `oxfmt-json` | [oxc-project/mirrors-oxfmt](https://github.com/oxc-project/mirrors-oxfmt) |
 | `oxlint` | `oxlint` | [oxc-project/mirrors-oxlint](https://github.com/oxc-project/mirrors-oxlint) |
 | `actionlint` | `actionlint` | [rhysd/actionlint](https://github.com/rhysd/actionlint) |
@@ -113,8 +114,9 @@ Each id also has a `mise-` variant. See
   `files:` to your schema files.
 - Some hooks overlap. For example, `ruff-format` and `rumdl-fmt` both format
   Markdown, `ryl` fixes YAML files that `oxfmt-yaml` also formats, `taplo` and
-  `tombi` both format and lint TOML, and `actionlint` and `jactionlint` both
-  lint GitHub Actions workflows. Pick one per file type.
+  `tombi` both format and lint TOML, `actionlint` and `jactionlint` both lint
+  GitHub Actions workflows, and `ty` and `pyrefly-check` both type check
+  Python. Pick one per file type.
 
 ## Changed defaults
 

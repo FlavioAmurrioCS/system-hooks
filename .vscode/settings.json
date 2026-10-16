@@ -1,5 +1,4 @@
 {
-  "ruff.nativeServer": "on",
   "[python]": {
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
@@ -25,5 +24,7 @@
     "tag:yaml.org,2002:python/name:material.extensions.emoji.twemoji",
     "tag:yaml.org,2002:python/name:pymdownx.superfences.fence_code_format",
     "tag:yaml.org,2002:python/object/apply:pymdownx.slugs.slugify mapping"
-  ]
+  ],
+  // "python.analysis.diagnosticsSource": "Pylance + Pyrefly"
+  "python.languageServer": "None"
 }
