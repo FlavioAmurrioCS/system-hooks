@@ -1,6 +1,8 @@
 #:schema https://www.schemastore.org/ryl.json
 # .ryl.toml, tuned for Prettier
 
+ignore = ["styles/"]
+
 [rules]
 brackets = "enable"
 colons = "enable"

@@ -43,16 +43,9 @@ test = [
 ]
 types = [
   { include-group = "test" },
-  "mypy",
   "typing-extensions",
-]
-type-checkers = [
-  { include-group = "types" },
-  "basedpyright",
   "pyrefly",
-  "pyright[nodejs]",
   "ty",
-  "zuban",
 ]
 docs = [
   "zensical",
@@ -86,7 +79,7 @@ dependency-groups = [
 ]
 
 [tool.hatch.envs.types.scripts]
-check = "mypy --install-types --non-interactive {args:src/system_hooks tests}"
+check = "pyrefly check"
 
 [[tool.hatch.envs.hatch-test.matrix]]
 python = [
