@@ -1,38 +1,71 @@
-#:schema https://www.schemastore.org/ryl.json
-# .ryl.toml, tuned for Prettier
+#:schema https://raw.githubusercontent.com/owenlamont/ryl/refs/heads/main/ryl.toml.schema.json
+# .ryl.toml: ryl's default preset, made stricter, and kept compatible with
+# Prettier (the VS Code default YAML formatter) and `oxfmt-yaml`.
 
-ignore = ["styles/"]
+indent-width = 2
+exclude = ["styles/"]
 
-[rules]
+# Prettier's YAML style
+[format]
+quote-style = "double"
+brace-spacing = true
+comment-spacing = 1
+max-blank-lines = 1
+document-start = "add"
+
+[files]
+yaml = [
+  "*.yaml",
+  "*.yml",
+  ".yamllint",
+]
+
+[lint.rules]
+anchors = "enable"
 brackets = "enable"
 colons = "enable"
 commas = "enable"
-comments-indentation = "enable"
+comments-indentation = "enable"  # default: warning
+document-end = "disable"  # Prettier never adds `...`
+float-values = "enable"  # default: disable
 hyphens = "enable"
+key-duplicates = "enable"
+key-ordering = "disable"  # key order carries meaning in workflows and configs
 new-line-at-end-of-file = "enable"
+new-lines = "enable"
+octal-values = "enable"  # default: disable
 trailing-spaces = "enable"
 
-[rules.braces]
+[lint.rules.braces]
 min-spaces-inside = 1  # Prettier pads `{ a: 1 }`
 max-spaces-inside = 1
 min-spaces-inside-empty = 0  # but keeps an empty `{}` tight
 max-spaces-inside-empty = 0
 
-[rules.comments]
+[lint.rules.comments]
 min-spaces-from-content = 1  # Prettier uses one space before inline comments
 
-[rules.new-lines]
-type = "unix"
+[lint.rules.document-start]
+present = true  # default: warning; `ryl format` adds it, Prettier keeps it
 
-[rules.empty-lines]
-max = 2
+[lint.rules.empty-lines]
+max = 1  # Prettier collapses blank lines to one
 
-[rules.indentation]
+[lint.rules.empty-values]
+forbid-in-block-mappings = false  # allow `pull_request:` in workflows
+forbid-in-flow-mappings = true
+
+[lint.rules.indentation]
 spaces = 2
 indent-sequences = true
 
-[rules.quoted-strings]
-required = "only-when-needed"
-
-[rules.line-length]
+[lint.rules.line-length]
 max = 120
+
+[lint.rules.quoted-strings]  # default: disable
+quote-type = "double"
+required = "only-when-needed"
+allow-quoted-quotes = true
+
+[lint.rules.truthy]  # default: warning
+check-keys = false  # allow the `on:` key in workflows

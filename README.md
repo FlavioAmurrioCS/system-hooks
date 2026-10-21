@@ -89,7 +89,7 @@ variants, which only need mise.
 | `vale` | `vale`, `vale-commit-msg` | [vale-cli/vale](https://github.com/vale-cli/vale) |
 | `tombi` | `tombi-format`, `tombi-lint` | [tombi-toml/tombi-pre-commit](https://github.com/tombi-toml/tombi-pre-commit) |
 | `taplo` | `taplo-format`, `taplo-lint` | [ComPWA/taplo-pre-commit](https://github.com/ComPWA/taplo-pre-commit) |
-| `ryl` | `ryl`, `ryl-markdown` | [owenlamont/ryl-pre-commit](https://github.com/owenlamont/ryl-pre-commit) |
+| `ryl` | `ryl-check`, `ryl-check-markdown`, `ryl-format`, `ryl-format-markdown` | [owenlamont/ryl-pre-commit](https://github.com/owenlamont/ryl-pre-commit) |
 | `jsonschema` | `sourcemeta-jsonschema-lint` | [sourcemeta/jsonschema](https://github.com/sourcemeta/jsonschema) |
 | `pre-commit-hooks` | `trailing-whitespace`, `end-of-file-fixer`, `check-yaml`, `check-added-large-files`, `name-tests-test` | [pre-commit/pre-commit-hooks](https://github.com/pre-commit/pre-commit-hooks) |
 | `check-jsonschema` | `check-jsonschema`, `check-metaschema` | [python-jsonschema/check-jsonschema](https://github.com/python-jsonschema/check-jsonschema) |
@@ -113,7 +113,7 @@ Each id also has a `mise-` variant. See
   YAML file, and report the ones that aren't JSON Schemas as invalid. Set
   `files:` to your schema files.
 - Some hooks overlap. For example, `ruff-format` and `rumdl-fmt` both format
-  Markdown, `ryl` fixes YAML files that `oxfmt-yaml` also formats, `taplo` and
+  Markdown, `ryl-format` and `oxfmt-yaml` both format YAML, `taplo` and
   `tombi` both format and lint TOML, `actionlint` and `jactionlint` both lint
   GitHub Actions workflows, and `ty` and `pyrefly-check` both type check
   Python. Pick one per file type.
@@ -128,7 +128,7 @@ changes.
 | `ruff-check` | `args: []` | `args: [--fix, --unsafe-fixes]` | Applies all fixes on commit, including [unsafe ones](https://docs.astral.sh/ruff/linter/#fix-safety) that can change behavior. |
 | `ty` | `entry: uv check ... --ty-version=<rev>` | no `--ty-version` | Uses the `ty` in your project environment instead of the hook release's version. Without one, `uv` picks the latest `ty` 0.0.x. |
 | `shfmt` | `args: [--write]` | `args: [--indent=4, --case-indent, --space-redirects, --write]` | Formats with 4-space indents, indented `case` branches and a space after redirect operators. Because the command line sets formatting flags, `shfmt` ignores `.editorconfig`. |
-| `ryl`, `ryl-markdown` | no `args` | `args: [--fix]` | Fixes YAML in place. |
+| `ryl-check`, `ryl-check-markdown` | no `args` | `args: [--fix]` | Applies safe lint fixes to YAML in place. |
 | `tombi-format`, `tombi-lint` | no `args` | `args: [--offline]` | Only uses schemas that `tombi` already cached. |
 | `taplo-lint` | `args: [--default-schema-catalogs]` | `args: []` | Doesn't download schemas from the default schema catalogs. |
 | `vale` | `types: [text]` | `types: [markdown]` | Only checks Markdown files. |
