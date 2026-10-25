@@ -69,3 +69,6 @@ allow-quoted-quotes = true
 
 [lint.rules.truthy]  # default: warning
 check-keys = false  # allow the `on:` key in workflows
+
+[lint.per-file-ignores]
+".pre-commit-hooks.yaml" = ["line-length"]  # generated from upstream entries
