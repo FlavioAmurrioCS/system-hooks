@@ -96,6 +96,10 @@ variants, which only need mise.
 | `uv` | `pip-compile`, `uv-lock`, `uv-export`, `uv-sync`, `uv-audit` | [astral-sh/uv-pre-commit](https://github.com/astral-sh/uv-pre-commit) |
 | `uv-to-pipfile` | `uv-to-pipfile` | [FlavioAmurrioCS/uv-to-pipfile](https://github.com/FlavioAmurrioCS/uv-to-pipfile) |
 | `renovate` | `renovate-config-validator` | [renovatebot/pre-commit-hooks](https://github.com/renovatebot/pre-commit-hooks) |
+| `gitleaks` | `gitleaks` | [gitleaks/gitleaks](https://github.com/gitleaks/gitleaks) |
+| `betterleaks` | `betterleaks` | [betterleaks/betterleaks](https://github.com/betterleaks/betterleaks) |
+| `trufflehog` | `trufflehog` | [trufflesecurity/trufflehog](https://github.com/trufflesecurity/trufflehog) |
+| `ripsecrets` | `ripsecrets` | [sirwart/ripsecrets](https://github.com/sirwart/ripsecrets) |
 
 Each id also has a `mise-` variant. See
 [`.pre-commit-hooks.yaml`](.pre-commit-hooks.yaml) for the full definitions.
@@ -117,6 +121,11 @@ Each id also has a `mise-` variant. See
   `tombi` both format and lint TOML, `actionlint` and `jactionlint` both lint
   GitHub Actions workflows, and `ty` and `pyrefly-check` both type check
   Python. Pick one per file type.
+- `gitleaks`, `betterleaks`, `trufflehog` and `ripsecrets` all scan for
+  secrets before a commit. `betterleaks` is a fork of `gitleaks` with the same
+  command line. `trufflehog` only reports secrets it verified with the
+  provider, so it needs network access. `ripsecrets` checks the staged files
+  pre-commit passes it, while the others read the git history or diff.
 
 ## Changed defaults
 

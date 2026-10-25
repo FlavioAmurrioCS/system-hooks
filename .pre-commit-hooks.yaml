@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=https://www.schemastore.org/pre-commit-hooks.json
 ---
-# Updated: 2026-10-21
+# Updated: 2026-10-25
 ################################################################################
 # region: https://github.com/akiomik/mado
 ################################################################################
@@ -208,6 +208,25 @@
 ################################################################################
 
 ################################################################################
+# region: https://github.com/betterleaks/betterleaks
+################################################################################
+- id: betterleaks
+  name: Detect hardcoded secrets
+  description: Detect hardcoded secrets using Betterleaks
+  entry: betterleaks git --pre-commit --redact --staged --verbose
+  language: system
+  pass_filenames: false
+- id: mise-betterleaks
+  name: Detect hardcoded secrets
+  description: Detect hardcoded secrets using Betterleaks
+  entry: mise exec betterleaks -- betterleaks git --pre-commit --redact --staged --verbose
+  language: system
+  pass_filenames: false
+################################################################################
+# endregion: https://github.com/betterleaks/betterleaks
+################################################################################
+
+################################################################################
 # region: https://github.com/ComPWA/taplo-pre-commit
 ################################################################################
 - id: taplo-format
@@ -317,6 +336,25 @@
   pass_filenames: false
 ################################################################################
 # endregion: https://github.com/FlavioAmurrioCS/uv-to-pipfile
+################################################################################
+
+################################################################################
+# region: https://github.com/gitleaks/gitleaks
+################################################################################
+- id: gitleaks
+  name: Detect hardcoded secrets
+  description: Detect hardcoded secrets using Gitleaks
+  entry: gitleaks git --pre-commit --redact --staged --verbose
+  language: system
+  pass_filenames: false
+- id: mise-gitleaks
+  name: Detect hardcoded secrets
+  description: Detect hardcoded secrets using Gitleaks
+  entry: mise exec gitleaks -- gitleaks git --pre-commit --redact --staged --verbose
+  language: system
+  pass_filenames: false
+################################################################################
+# endregion: https://github.com/gitleaks/gitleaks
 ################################################################################
 
 ################################################################################
@@ -765,6 +803,31 @@
 ################################################################################
 
 ################################################################################
+# region: https://github.com/sirwart/ripsecrets
+################################################################################
+- id: ripsecrets
+  name: ripsecrets
+  description: Prevent committing secret keys into your source code
+  entry: ripsecrets
+  language: system
+  types: [text]
+  args: [--strict-ignore]
+  require_serial: true
+  minimum_pre_commit_version: "0"
+- id: mise-ripsecrets
+  name: ripsecrets
+  description: Prevent committing secret keys into your source code
+  entry: mise exec ripsecrets -- ripsecrets
+  language: system
+  types: [text]
+  args: [--strict-ignore]
+  require_serial: true
+  minimum_pre_commit_version: "0"
+################################################################################
+# endregion: https://github.com/sirwart/ripsecrets
+################################################################################
+
+################################################################################
 # region: https://github.com/sourcemeta/jsonschema
 ################################################################################
 - id: sourcemeta-jsonschema-lint
@@ -818,6 +881,25 @@
   args: [--offline]
 ################################################################################
 # endregion: https://github.com/tombi-toml/tombi-pre-commit
+################################################################################
+
+################################################################################
+# region: https://github.com/trufflesecurity/trufflehog
+################################################################################
+- id: trufflehog
+  name: TruffleHog
+  description: Detect secrets in your data with TruffleHog.
+  entry: trufflehog git file://. --since-commit HEAD --results=verified --fail --trust-local-git-config
+  language: system
+  pass_filenames: false
+- id: mise-trufflehog
+  name: TruffleHog
+  description: Detect secrets in your data with TruffleHog.
+  entry: mise exec trufflehog -- trufflehog git file://. --since-commit HEAD --results=verified --fail --trust-local-git-config
+  language: system
+  pass_filenames: false
+################################################################################
+# endregion: https://github.com/trufflesecurity/trufflehog
 ################################################################################
 
 ################################################################################
@@ -946,28 +1028,32 @@
 ################################################################################
 # Sources
 #   https://github.com/akiomik/mado v0.3.2
-#   https://github.com/astral-sh/ruff-pre-commit v0.17.1
-#   https://github.com/astral-sh/ty-pre-commit v0.0.90
-#   https://github.com/astral-sh/uv-pre-commit 0.13.4
+#   https://github.com/astral-sh/ruff-pre-commit v0.17.2
+#   https://github.com/astral-sh/ty-pre-commit v0.0.91
+#   https://github.com/astral-sh/uv-pre-commit 0.13.5
+#   https://github.com/betterleaks/betterleaks v1.9.0
 #   https://github.com/ComPWA/taplo-pre-commit v0.9.3
-#   https://github.com/ewhauser/shuck v0.2.6
+#   https://github.com/ewhauser/shuck v0.2.7
 #   https://github.com/facebook/pyrefly-pre-commit 1.4.0
 #   https://github.com/FlavioAmurrioCS/uv-to-pipfile v0.0.7
+#   https://github.com/gitleaks/gitleaks v8.30.1
 #   https://github.com/hadolint/hadolint v2.15.1
-#   https://github.com/jdx/jactionlint v2.2.0
+#   https://github.com/jdx/jactionlint v2.3.0
 #   https://github.com/owenlamont/ryl-pre-commit v0.26.0
 #   https://github.com/oxc-project/mirrors-oxfmt v0.74.0
 #   https://github.com/oxc-project/mirrors-oxlint v1.89.0
 #   https://github.com/pre-commit/pre-commit-hooks v6.0.0
 #   https://github.com/python-jsonschema/check-jsonschema 0.38.2
-#   https://github.com/renovatebot/pre-commit-hooks 44.173.1
+#   https://github.com/renovatebot/pre-commit-hooks 44.181.5
 #   https://github.com/reteps/dockerfmt v0.5.4
 #   https://github.com/rhysd/actionlint v1.7.12
 #   https://github.com/rvben/rumdl-pre-commit v0.3.0
 #   https://github.com/scop/pre-commit-shfmt v3.14.1-1
 #   https://github.com/shellcheck-py/shellcheck-py v0.11.0.1-1
-#   https://github.com/sourcemeta/jsonschema v17.2.1
-#   https://github.com/tombi-toml/tombi-pre-commit v1.8.9
-#   https://github.com/vale-cli/vale v3.24.0
+#   https://github.com/sirwart/ripsecrets v0.1.11
+#   https://github.com/sourcemeta/jsonschema v17.3.0
+#   https://github.com/tombi-toml/tombi-pre-commit v1.9.5
+#   https://github.com/trufflesecurity/trufflehog v3.99.7
+#   https://github.com/vale-cli/vale v3.25.1
 #   https://github.com/zizmorcore/zizmor-pre-commit v1.31.1
 ################################################################################
