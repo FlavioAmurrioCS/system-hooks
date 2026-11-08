@@ -18,27 +18,31 @@ ci:
     - betterleaks
     - ripsecrets
 exclude: ^styles/(Google|write-good|proselint)/
+# An exact version keeps nodeenv from parsing the newest Node.js release, which
+# crashes on prerelease versions such as v27.0.0-alpha. Match .config/mise.toml.
+default_language_version:
+  node: 26.12.1
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.17.2
+    rev: v0.17.4
     mise_tools: [ruff]
     hooks:
       - id: ruff-check
         args: [--fix, --unsafe-fixes]
       - id: ruff-format
   - repo: https://github.com/astral-sh/ty-pre-commit
-    rev: v0.0.91
+    rev: v0.0.99
     mise_tools: [uv]
     hooks:
       - id: ty
         entry: uv check --quiet --preview-features=check-command
   - repo: https://github.com/oxc-project/mirrors-oxfmt
-    rev: v0.74.0
+    rev: v0.77.0
     mise_tools: [oxfmt, node]
     hooks:
       - id: oxfmt
   - repo: https://github.com/oxc-project/mirrors-oxlint
-    rev: v1.89.0
+    rev: v1.92.0
     mise_tools: [oxlint]
     hooks:
       - id: oxlint
@@ -48,7 +52,7 @@ repos:
     hooks:
       - id: actionlint
   - repo: https://github.com/zizmorcore/zizmor-pre-commit
-    rev: v1.31.1
+    rev: v1.32.0
     mise_tools: [zizmor]
     hooks:
       - id: zizmor
@@ -100,7 +104,7 @@ repos:
     hooks:
       - id: shuck
   - repo: https://github.com/reteps/dockerfmt
-    rev: v0.5.4
+    rev: v0.6.0
     mise_tools: [github:reteps/dockerfmt]
     hooks:
       - id: dockerfmt
@@ -110,25 +114,25 @@ repos:
     hooks:
       - id: hadolint
   - repo: https://github.com/rvben/rumdl-pre-commit
-    rev: v0.3.0
+    rev: v0.3.2
     mise_tools: [rumdl]
     hooks:
       - id: rumdl-fmt
       - id: rumdl-check
   - repo: https://github.com/akiomik/mado
-    rev: v0.3.2
+    rev: v0.4.0
     mise_tools: [github:akiomik/mado]
     hooks:
       - id: mado
   - repo: https://github.com/vale-cli/vale
-    rev: v3.25.1
+    rev: v3.26.0
     mise_tools: [vale]
     hooks:
       - id: vale
         types: [markdown]
       - id: vale-commit-msg
   - repo: https://github.com/tombi-toml/tombi-pre-commit
-    rev: v1.9.5
+    rev: v1.10.0
     mise_tools: [tombi]
     hooks:
       - id: tombi-format
@@ -136,7 +140,7 @@ repos:
       - id: tombi-lint
         args: [--offline]
   - repo: https://github.com/owenlamont/ryl-pre-commit
-    rev: v0.26.0
+    rev: v0.29.0
     mise_tools: [github:owenlamont/ryl]
     hooks:
       - id: ryl-check
@@ -146,7 +150,7 @@ repos:
         args: [--fix]
       - id: ryl-format-markdown
   - repo: https://github.com/sourcemeta/jsonschema
-    rev: v17.3.0
+    rev: v17.3.3
     mise_tools: [jsonschema]
     hooks:
       - id: sourcemeta-jsonschema-lint
@@ -160,13 +164,13 @@ repos:
       - id: check-added-large-files
       - id: name-tests-test
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.38.2
+    rev: 0.39.0
     mise_tools: [pypi:check-jsonschema]
     hooks:
       - id: check-jsonschema
       - id: check-metaschema
   - repo: https://github.com/astral-sh/uv-pre-commit
-    rev: 0.13.5
+    rev: 0.13.7
     mise_tools: [uv]
     hooks:
       - id: pip-compile
@@ -180,7 +184,7 @@ repos:
     hooks:
       - id: uv-to-pipfile
   - repo: https://github.com/renovatebot/pre-commit-hooks
-    rev: 44.181.5
+    rev: 44.222.3
     mise_tools: [npm:renovate, node]
     hooks:
       - id: renovate-config-validator
@@ -192,12 +196,12 @@ repos:
       - id: taplo-lint
         args: []
   - repo: https://github.com/jdx/jactionlint
-    rev: v2.3.0
+    rev: v2.5.0
     mise_tools: [jactionlint]
     hooks:
       - id: jactionlint
   - repo: https://github.com/facebook/pyrefly-pre-commit
-    rev: 1.4.0
+    rev: 1.4.1
     mise_tools: [pypi:pyrefly]
     hooks:
       - id: pyrefly-check
@@ -208,12 +212,12 @@ repos:
     hooks:
       - id: gitleaks
   - repo: https://github.com/trufflesecurity/trufflehog
-    rev: v3.99.7
+    rev: v3.99.8
     mise_tools: [trufflehog]
     hooks:
       - id: trufflehog
   - repo: https://github.com/betterleaks/betterleaks
-    rev: v1.9.0
+    rev: v1.10.0
     mise_tools: [betterleaks]
     hooks:
       - id: betterleaks
