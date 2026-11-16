@@ -80,6 +80,7 @@ variants, which only need mise.
 | `zizmor` | `zizmor` | [zizmorcore/zizmor-pre-commit](https://github.com/zizmorcore/zizmor-pre-commit) |
 | `shfmt` | `shfmt` | [scop/pre-commit-shfmt](https://github.com/scop/pre-commit-shfmt) |
 | `bash` | `bash-syntax-check` | local |
+| `mise` | `mise-fmt`, `mise-lock` | local |
 | `shellcheck` | `shellcheck` | [shellcheck-py/shellcheck-py](https://github.com/shellcheck-py/shellcheck-py) |
 | `shuck` | `shuck` | [ewhauser/shuck](https://github.com/ewhauser/shuck) |
 | `dockerfmt` | `dockerfmt` | [reteps/dockerfmt](https://github.com/reteps/dockerfmt) |
@@ -101,7 +102,8 @@ variants, which only need mise.
 | `trufflehog` | `trufflehog` | [trufflesecurity/trufflehog](https://github.com/trufflesecurity/trufflehog) |
 | `ripsecrets` | `ripsecrets` | [sirwart/ripsecrets](https://github.com/sirwart/ripsecrets) |
 
-Each id also has a `mise-` variant. See
+Each id except `mise-fmt` and `mise-lock` also has a `mise-` variant. Those two
+already run mise. See
 [`.pre-commit-hooks.yaml`](.pre-commit-hooks.yaml) for the full definitions.
 
 ## Notes

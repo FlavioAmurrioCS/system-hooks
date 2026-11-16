@@ -17,6 +17,8 @@ ci:
     - trufflehog
     - betterleaks
     - ripsecrets
+    - mise-fmt
+    - mise-lock
 exclude: ^(styles/(Google|write-good|proselint)/|\.config/mise/locks/|\.config/mise\.lock$)
 # An exact version keeps nodeenv from parsing the newest Node.js release, which
 # crashes on prerelease versions such as v27.0.0-alpha. Match .config/mise.toml.
@@ -73,6 +75,27 @@ repos:
         mise_tools: [pre-commit]
         types: [shell]
         exclude_types: [zsh]
+      # Ids starting with `mise-` already run mise, so main.py adds no `mise-` variant.
+      - id: mise-fmt
+        name: mise-fmt
+        description: Format mise configuration files with `mise fmt`
+        entry: mise fmt
+        language: system
+        files: &mise-config |-
+          (?x)^(
+            \.?mise(\.[^/]+)?\.toml
+            | (\.?mise|\.config/mise)/config(\.[^/]+)?\.toml
+            | \.config/mise(/mise)?(\.[^/]+)?\.toml
+            | \.config/mise/conf\.d/[^/]+\.toml
+          )$
+        pass_filenames: false
+      - id: mise-lock
+        name: mise-lock
+        description: Update mise.lock when mise configuration files change
+        entry: mise lock
+        language: system
+        files: *mise-config
+        pass_filenames: false
       - id: oxfmt-yaml
         name: oxfmt-yaml
         mise_tools: [oxfmt, node]

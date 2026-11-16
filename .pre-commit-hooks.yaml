@@ -981,6 +981,26 @@
   minimum_pre_commit_version: 4.5.0
   types: [shell]
   exclude_types: [zsh]
+- id: mise-fmt
+  name: mise-fmt
+  description: Format mise configuration files with `mise fmt`
+  entry: mise fmt
+  language: system
+  files: &mise-config |-
+    (?x)^(
+      \.?mise(\.[^/]+)?\.toml
+      | (\.?mise|\.config/mise)/config(\.[^/]+)?\.toml
+      | \.config/mise(/mise)?(\.[^/]+)?\.toml
+      | \.config/mise/conf\.d/[^/]+\.toml
+    )$
+  pass_filenames: false
+- id: mise-lock
+  name: mise-lock
+  description: Update mise.lock when mise configuration files change
+  entry: mise lock
+  language: system
+  files: *mise-config
+  pass_filenames: false
 - id: oxfmt-json
   name: oxfmt-json
   description: Format JSON files with oxfmt

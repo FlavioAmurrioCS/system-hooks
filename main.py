@@ -161,6 +161,9 @@ def main() -> None:  # noqa: PLR0915
                 local_hook.pop("additional_dependencies", None)
                 local_hook.pop("language_version", None)
                 pre_commit_hooks.append(local_hook)
+                if local_hook["id"].startswith("mise-"):
+                    # The hook already runs mise, so a `mise-` variant would only repeat it.
+                    continue
 
                 hook = deepcopy(local_hook)
                 hook["id"] = f"mise-{hook['id']}"
@@ -200,6 +203,8 @@ def main() -> None:  # noqa: PLR0915
                     upstream_pre_commit_hooks_hook.pop("mise_tools", None) or global_mise_tools
                 )
                 pre_commit_hooks.append(upstream_pre_commit_hooks_hook)
+                if upstream_pre_commit_hooks_hook["id"].startswith("mise-"):
+                    continue
 
                 hook = deepcopy(upstream_pre_commit_hooks_hook)
                 hook["id"] = f"mise-{hook['id']}"
