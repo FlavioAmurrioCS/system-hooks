@@ -96,6 +96,53 @@ url = "https://github.com/betterleaks/betterleaks/releases/download/v1.10.1/bett
 url_api = "https://api.github.com/repos/betterleaks/betterleaks/releases/assets/740237680"
 provenance = "cosign"
 
+[[tools.changie]]
+version = "1.26.0"
+backend = "aqua:miniscruff/changie"
+specifiers = ["1.26.0"]
+
+[tools.changie."platforms.linux-arm64"]
+checksum = "sha256:ec1e542014b5134f1cf86b3a12e86d566ab5ec9bd3901bf66f42a09cd9865b6e"
+checksum_source = "mise-versions"
+url = "https://github.com/miniscruff/changie/releases/download/v1.26.0/changie_1.26.0_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/miniscruff/changie/releases/assets/522840185"
+
+[tools.changie."platforms.linux-arm64-musl"]
+checksum = "sha256:ec1e542014b5134f1cf86b3a12e86d566ab5ec9bd3901bf66f42a09cd9865b6e"
+checksum_source = "mise-versions"
+url = "https://github.com/miniscruff/changie/releases/download/v1.26.0/changie_1.26.0_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/miniscruff/changie/releases/assets/522840185"
+
+[tools.changie."platforms.linux-x64"]
+checksum = "sha256:eab168c8287a6e91912e1c02e5260911232d945bfd3c89d8a0e1ace6bb7b6161"
+checksum_source = "mise-versions"
+url = "https://github.com/miniscruff/changie/releases/download/v1.26.0/changie_1.26.0_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/miniscruff/changie/releases/assets/522840176"
+
+[tools.changie."platforms.linux-x64-musl"]
+checksum = "sha256:eab168c8287a6e91912e1c02e5260911232d945bfd3c89d8a0e1ace6bb7b6161"
+checksum_source = "mise-versions"
+url = "https://github.com/miniscruff/changie/releases/download/v1.26.0/changie_1.26.0_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/miniscruff/changie/releases/assets/522840176"
+
+[tools.changie."platforms.macos-arm64"]
+checksum = "sha256:ba1a14e0eb220fb9c7d4dc90af462e7f7178a313cdb1299a17aafbb37838a458"
+checksum_source = "mise-versions"
+url = "https://github.com/miniscruff/changie/releases/download/v1.26.0/changie_1.26.0_darwin_arm64.tar.gz"
+url_api = "https://api.github.com/repos/miniscruff/changie/releases/assets/522840177"
+
+[tools.changie."platforms.macos-x64"]
+checksum = "sha256:9a1a4dc8a6901ccd9724b3b9b5ec1354e5038b1b1aa4dceef65976f6462ac7d2"
+checksum_source = "mise-versions"
+url = "https://github.com/miniscruff/changie/releases/download/v1.26.0/changie_1.26.0_darwin_amd64.tar.gz"
+url_api = "https://api.github.com/repos/miniscruff/changie/releases/assets/522840194"
+
+[tools.changie."platforms.windows-x64"]
+checksum = "sha256:86b1e2851d78be2b52b04c8129442d4fcc8b29edd839bcc893fe66486d72ae72"
+checksum_source = "mise-versions"
+url = "https://github.com/miniscruff/changie/releases/download/v1.26.0/changie_1.26.0_windows_amd64.zip"
+url_api = "https://api.github.com/repos/miniscruff/changie/releases/assets/522840186"
+
 [[tools."github:akiomik/mado"]]
 version = "0.4.0"
 backend = "github:akiomik/mado"

@@ -981,6 +981,22 @@
   minimum_pre_commit_version: 4.5.0
   types: [shell]
   exclude_types: [zsh]
+- id: changie-check
+  name: changie-check
+  description: Check that changie fragments parse, by running a dry-run batch
+  # The bump only names the dry-run version, and `auto` would depend on the fragments.
+  entry: changie batch patch --dry-run
+  language: system
+  files: ^(\.changie\.ya?ml|\.changes/.+\.ya?ml)$
+  pass_filenames: false
+- id: mise-changie-check
+  name: changie-check
+  description: Check that changie fragments parse, by running a dry-run batch
+  # The bump only names the dry-run version, and `auto` would depend on the fragments.
+  entry: mise exec changie -- changie batch patch --dry-run
+  language: system
+  files: ^(\.changie\.ya?ml|\.changes/.+\.ya?ml)$
+  pass_filenames: false
 - id: mise-fmt
   name: mise-fmt
   description: Format mise configuration files with `mise fmt`

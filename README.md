@@ -80,6 +80,7 @@ variants, which only need mise.
 | `zizmor` | `zizmor` | [zizmorcore/zizmor-pre-commit](https://github.com/zizmorcore/zizmor-pre-commit) |
 | `shfmt` | `shfmt` | [scop/pre-commit-shfmt](https://github.com/scop/pre-commit-shfmt) |
 | `bash` | `bash-syntax-check` | local |
+| `changie` | `changie-check` | local |
 | `mise` | `mise-fmt`, `mise-lock` | local |
 | `shellcheck` | `shellcheck` | [shellcheck-py/shellcheck-py](https://github.com/shellcheck-py/shellcheck-py) |
 | `shuck` | `shuck` | [ewhauser/shuck](https://github.com/ewhauser/shuck) |

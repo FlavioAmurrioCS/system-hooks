@@ -14,6 +14,7 @@ SKIP = "sourcemeta-jsonschema-lint,check-jsonschema,check-metaschema,taplo-lint,
 "pypi:uv-to-pipfile" = "0.0.7"
 actionlint = "1.7.12"
 betterleaks = "1.10.1"
+changie = "1.26.0"
 gitleaks = "8.30.1"
 hadolint = "2.15.1"
 jactionlint = "2.6.0"

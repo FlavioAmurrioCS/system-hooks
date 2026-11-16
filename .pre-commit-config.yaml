@@ -19,6 +19,7 @@ ci:
     - ripsecrets
     - mise-fmt
     - mise-lock
+    - changie-check
 exclude: ^(styles/(Google|write-good|proselint)/|\.config/mise/locks/|\.config/mise\.lock$)
 # An exact version keeps nodeenv from parsing the newest Node.js release, which
 # crashes on prerelease versions such as v27.0.0-alpha. Match .config/mise.toml.
@@ -75,6 +76,15 @@ repos:
         mise_tools: [pre-commit]
         types: [shell]
         exclude_types: [zsh]
+      - id: changie-check
+        name: changie-check
+        description: Check that changie fragments parse, by running a dry-run batch
+        # The bump only names the dry-run version, and `auto` would depend on the fragments.
+        entry: changie batch patch --dry-run
+        language: system
+        files: ^(\.changie\.ya?ml|\.changes/.+\.ya?ml)$
+        pass_filenames: false
+        mise_tools: [changie]
       # Ids starting with `mise-` already run mise, so main.py adds no `mise-` variant.
       - id: mise-fmt
         name: mise-fmt
