@@ -40,12 +40,12 @@ repos:
       - id: ty
         entry: uv check --quiet --preview-features=check-command
   - repo: https://github.com/oxc-project/mirrors-oxfmt
-    rev: v0.78.0
+    rev: v0.79.0
     mise_tools: [oxfmt, node]
     hooks:
       - id: oxfmt
   - repo: https://github.com/oxc-project/mirrors-oxlint
-    rev: v1.93.0
+    rev: v1.60.0
     mise_tools: [oxlint]
     hooks:
       - id: oxlint
@@ -132,7 +132,7 @@ repos:
     hooks:
       - id: shellcheck
   - repo: https://github.com/ewhauser/shuck
-    rev: v0.2.7
+    rev: v0.2.10
     mise_tools: [github:ewhauser/shuck]
     hooks:
       - id: shuck
@@ -165,7 +165,7 @@ repos:
         types: [markdown]
       - id: vale-commit-msg
   - repo: https://github.com/tombi-toml/tombi-pre-commit
-    rev: v1.10.0
+    rev: v1.11.2
     mise_tools: [tombi]
     hooks:
       - id: tombi-format
@@ -217,7 +217,7 @@ repos:
     hooks:
       - id: uv-to-pipfile
   - repo: https://github.com/renovatebot/pre-commit-hooks
-    rev: 44.240.0
+    rev: 44.246.3
     mise_tools: [npm:renovate, node]
     hooks:
       - id: renovate-config-validator
@@ -240,7 +240,7 @@ repos:
       - id: pyrefly-check
         language: system
   - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.30.1
+    rev: v8.30.0
     mise_tools: [gitleaks]
     hooks:
       - id: gitleaks
@@ -250,7 +250,7 @@ repos:
     hooks:
       - id: trufflehog
   - repo: https://github.com/betterleaks/betterleaks
-    rev: v1.10.1
+    rev: v2.0.0-rc.8
     mise_tools: [betterleaks]
     hooks:
       - id: betterleaks
