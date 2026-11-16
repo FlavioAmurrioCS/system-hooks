@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=https://www.schemastore.org/pre-commit-hooks.json
 ---
-# Updated: 2026-11-08
+# Updated: 2026-11-16
 ################################################################################
 # region: https://github.com/akiomik/mado
 ################################################################################
@@ -660,34 +660,28 @@
   args:
     - --write
     - --newline
-    - --space-redirects
   description: Format Dockerfile files
   entry: dockerfmt
-  files: ^.*(Container|Docker)file.*$
+  files: (?i)(^|/)[^/]*(container|docker)file[^/]*$
   id: dockerfmt
   language: system
   name: dockerfmt
   pass_filenames: true
   require_serial: false
-  exclude: .dockerignore$
-  types_or:
-    - dockerfile
+  exclude: (?i)(\.dockerignore|\.(md|txt|go|py|js|ts|sh|json|ya?ml|j2|tmpl|tpl))$
 - alias: dockerfmt
   args:
     - --write
     - --newline
-    - --space-redirects
   description: Format Dockerfile files
   entry: mise exec github:reteps/dockerfmt -- dockerfmt
-  files: ^.*(Container|Docker)file.*$
+  files: (?i)(^|/)[^/]*(container|docker)file[^/]*$
   id: mise-dockerfmt
   language: system
   name: dockerfmt
   pass_filenames: true
   require_serial: false
-  exclude: .dockerignore$
-  types_or:
-    - dockerfile
+  exclude: (?i)(\.dockerignore|\.(md|txt|go|py|js|ts|sh|json|ya?ml|j2|tmpl|tpl))$
 ################################################################################
 # endregion: https://github.com/reteps/dockerfmt
 ################################################################################
@@ -1026,32 +1020,32 @@
 ################################################################################
 # Sources
 #   https://github.com/akiomik/mado v0.4.0
-#   https://github.com/astral-sh/ruff-pre-commit v0.17.4
-#   https://github.com/astral-sh/ty-pre-commit v0.0.99
-#   https://github.com/astral-sh/uv-pre-commit 0.13.7
-#   https://github.com/betterleaks/betterleaks v1.10.0
+#   https://github.com/astral-sh/ruff-pre-commit v0.17.5
+#   https://github.com/astral-sh/ty-pre-commit v0.0.104
+#   https://github.com/astral-sh/uv-pre-commit 0.13.8
+#   https://github.com/betterleaks/betterleaks v1.10.1
 #   https://github.com/ComPWA/taplo-pre-commit v0.9.3
 #   https://github.com/ewhauser/shuck v0.2.7
 #   https://github.com/facebook/pyrefly-pre-commit 1.4.1
 #   https://github.com/FlavioAmurrioCS/uv-to-pipfile v0.0.7
 #   https://github.com/gitleaks/gitleaks v8.30.1
 #   https://github.com/hadolint/hadolint v2.15.1
-#   https://github.com/jdx/jactionlint v2.5.0
+#   https://github.com/jdx/jactionlint v2.6.0
 #   https://github.com/owenlamont/ryl-pre-commit v0.29.0
-#   https://github.com/oxc-project/mirrors-oxfmt v0.77.0
-#   https://github.com/oxc-project/mirrors-oxlint v1.92.0
+#   https://github.com/oxc-project/mirrors-oxfmt v0.78.0
+#   https://github.com/oxc-project/mirrors-oxlint v1.93.0
 #   https://github.com/pre-commit/pre-commit-hooks v6.0.0
 #   https://github.com/python-jsonschema/check-jsonschema 0.39.0
-#   https://github.com/renovatebot/pre-commit-hooks 44.222.3
-#   https://github.com/reteps/dockerfmt v0.6.0
+#   https://github.com/renovatebot/pre-commit-hooks 44.240.0
+#   https://github.com/reteps/dockerfmt v1.0.0
 #   https://github.com/rhysd/actionlint v1.7.12
-#   https://github.com/rvben/rumdl-pre-commit v0.3.2
+#   https://github.com/rvben/rumdl-pre-commit v0.3.4
 #   https://github.com/scop/pre-commit-shfmt v3.14.1-1
 #   https://github.com/shellcheck-py/shellcheck-py v0.11.0.1-1
 #   https://github.com/sirwart/ripsecrets v0.1.11
 #   https://github.com/sourcemeta/jsonschema v17.3.3
 #   https://github.com/tombi-toml/tombi-pre-commit v1.10.0
-#   https://github.com/trufflesecurity/trufflehog v3.99.8
-#   https://github.com/vale-cli/vale v3.26.0
+#   https://github.com/trufflesecurity/trufflehog v3.99.9
+#   https://github.com/vale-cli/vale v3.27.0
 #   https://github.com/zizmorcore/zizmor-pre-commit v1.32.0
 ################################################################################

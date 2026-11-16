@@ -17,32 +17,32 @@ ci:
     - trufflehog
     - betterleaks
     - ripsecrets
-exclude: ^styles/(Google|write-good|proselint)/
+exclude: ^(styles/(Google|write-good|proselint)/|\.config/mise/locks/|\.config/mise\.lock$)
 # An exact version keeps nodeenv from parsing the newest Node.js release, which
 # crashes on prerelease versions such as v27.0.0-alpha. Match .config/mise.toml.
 default_language_version:
-  node: 26.12.1
+  node: 26.13.1
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.17.4
+    rev: v0.17.5
     mise_tools: [ruff]
     hooks:
       - id: ruff-check
         args: [--fix, --unsafe-fixes]
       - id: ruff-format
   - repo: https://github.com/astral-sh/ty-pre-commit
-    rev: v0.0.99
+    rev: v0.0.104
     mise_tools: [uv]
     hooks:
       - id: ty
         entry: uv check --quiet --preview-features=check-command
   - repo: https://github.com/oxc-project/mirrors-oxfmt
-    rev: v0.77.0
+    rev: v0.78.0
     mise_tools: [oxfmt, node]
     hooks:
       - id: oxfmt
   - repo: https://github.com/oxc-project/mirrors-oxlint
-    rev: v1.92.0
+    rev: v1.93.0
     mise_tools: [oxlint]
     hooks:
       - id: oxlint
@@ -104,7 +104,7 @@ repos:
     hooks:
       - id: shuck
   - repo: https://github.com/reteps/dockerfmt
-    rev: v0.6.0
+    rev: v1.0.0
     mise_tools: [github:reteps/dockerfmt]
     hooks:
       - id: dockerfmt
@@ -114,7 +114,7 @@ repos:
     hooks:
       - id: hadolint
   - repo: https://github.com/rvben/rumdl-pre-commit
-    rev: v0.3.2
+    rev: v0.3.4
     mise_tools: [rumdl]
     hooks:
       - id: rumdl-fmt
@@ -125,7 +125,7 @@ repos:
     hooks:
       - id: mado
   - repo: https://github.com/vale-cli/vale
-    rev: v3.26.0
+    rev: v3.27.0
     mise_tools: [vale]
     hooks:
       - id: vale
@@ -170,7 +170,7 @@ repos:
       - id: check-jsonschema
       - id: check-metaschema
   - repo: https://github.com/astral-sh/uv-pre-commit
-    rev: 0.13.7
+    rev: 0.13.8
     mise_tools: [uv]
     hooks:
       - id: pip-compile
@@ -184,7 +184,7 @@ repos:
     hooks:
       - id: uv-to-pipfile
   - repo: https://github.com/renovatebot/pre-commit-hooks
-    rev: 44.222.3
+    rev: 44.240.0
     mise_tools: [npm:renovate, node]
     hooks:
       - id: renovate-config-validator
@@ -196,7 +196,7 @@ repos:
       - id: taplo-lint
         args: []
   - repo: https://github.com/jdx/jactionlint
-    rev: v2.5.0
+    rev: v2.6.0
     mise_tools: [jactionlint]
     hooks:
       - id: jactionlint
@@ -212,12 +212,12 @@ repos:
     hooks:
       - id: gitleaks
   - repo: https://github.com/trufflesecurity/trufflehog
-    rev: v3.99.8
+    rev: v3.99.9
     mise_tools: [trufflehog]
     hooks:
       - id: trufflehog
   - repo: https://github.com/betterleaks/betterleaks
-    rev: v1.10.0
+    rev: v1.10.1
     mise_tools: [betterleaks]
     hooks:
       - id: betterleaks

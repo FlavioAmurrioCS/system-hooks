@@ -178,7 +178,6 @@ temp/
 .DS_Store
 *.dist-info/
 
-uv.lock
 requirements.txt
 .rumdl_cache
 Pipfile.lock
