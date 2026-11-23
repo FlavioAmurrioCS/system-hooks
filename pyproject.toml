@@ -1,19 +1,15 @@
 #:schema https://www.schemastore.org/pyproject.json
-[build-system]
-requires = ["hatchling", "hatch-vcs"]
-build-backend = "hatchling.build"
 
 [project]
 name = "system-hooks"
-dynamic = ["version"]
 description = "System Pre-Commit Hooks"
 readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
-keywords = []
 authors = [
   { name = "Flavio Amurrio", email = "25621374+FlavioAmurrioCS@users.noreply.github.com" },
 ]
+keywords = []
 classifiers = [
   "Development Status :: 4 - Beta",
   "Programming Language :: Python",
@@ -28,28 +24,7 @@ dependencies = [
   "persistent-cache-decorator",
   "ruamel-yaml",
 ]
-
-[project.optional-dependencies]
-
-[dependency-groups]
-dev = [
-  { include-group = "test" },
-  { include-group = "types" },
-]
-test = [
-  "pytest",
-  "pytest-cov",
-  "tomli ; python_version < '3.11'",
-]
-types = [
-  { include-group = "test" },
-  "typing-extensions",
-  "pyrefly",
-  "ty",
-]
-docs = [
-  "zensical",
-]
+dynamic = ["version"]
 
 [project.urls]
 Documentation = "https://github.com/FlavioAmurrioCS/system-hooks#readme"
@@ -59,38 +34,31 @@ Source = "https://github.com/FlavioAmurrioCS/system-hooks"
 [project.scripts]
 system-hooks = "system_hooks.__main__:main"
 
-###############################################################################
-# region: hatch
-###############################################################################
-[tool.hatch.version]
-source = "vcs"
+[project.optional-dependencies]
 
-[tool.hatch.build.hooks.vcs]
-version-file = "src/system_hooks/_version.py"
-
-[tool.hatch.envs.hatch-test]
-dependency-groups = [
-  "test",
+[dependency-groups]
+dev = [
+  { include-group = "test" },
+  { include-group = "types" },
+]
+docs = [
+  "zensical",
+]
+test = [
+  "pytest",
+  "pytest-cov",
+  "tomli ; python_version < '3.11'",
+]
+types = [
+  "pyrefly",
+  "ty",
+  "typing-extensions",
+  { include-group = "test" },
 ]
 
-[tool.hatch.envs.types]
-dependency-groups = [
-  "types",
-]
-
-[tool.hatch.envs.types.scripts]
-check = "pyrefly check"
-
-[[tool.hatch.envs.hatch-test.matrix]]
-python = [
-  "3.11",
-  "3.12",
-  "3.13",
-  "3.14",
-]
-###############################################################################
-# endregion: hatch
-###############################################################################
+[build-system]
+requires = ["hatch-vcs", "hatchling"]
+build-backend = "hatchling.build"
 
 ###############################################################################
 # region: coverage
@@ -119,13 +87,63 @@ exclude_lines = [
 ###############################################################################
 
 ###############################################################################
+# region: hatch
+###############################################################################
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "src/system_hooks/_version.py"
+
+[tool.hatch.envs.hatch-test]
+dependency-groups = [
+  "test",
+]
+
+[[tool.hatch.envs.hatch-test.matrix]]
+python = [
+  "3.11",
+  "3.12",
+  "3.13",
+  "3.14",
+]
+###############################################################################
+# endregion: hatch
+###############################################################################
+
+[tool.hatch.envs.types]
+dependency-groups = [
+  "types",
+]
+
+[tool.hatch.envs.types.scripts]
+check = "pyrefly check"
+
+###############################################################################
 # region: ruff
 ###############################################################################
 [tool.hatch.envs.hatch-static-analysis]
 config-path = "none"
 
-[tool.ruff.lint.isort]
-force-single-line = true
+###############################################################################
+# region: type-checkers
+###############################################################################
+[tool.mypy]
+# https://mypy.readthedocs.io/en/stable/config_file.html
+strict = true
+
+[tool.pyrefly]
+# https://pyrefly.org/en/docs/configuration/
+preset = "strict"
+
+[tool.pyright]
+# https://github.com/microsoft/pyright/blob/main/docs/configuration.md
+typeCheckingMode = "strict"
+reportUnusedImport = false
+
+# [tool.basedpyright]
+# # https://docs.basedpyright.com/latest/configuration/config-files/
+# typeCheckingMode = "all"
 
 [tool.ruff]
 line-length = 100
@@ -146,9 +164,8 @@ ignore = [
   "CPY001",  # missing-copyright-notice
 ]
 
-[tool.ruff.format]
-docstring-code-format = true
-docstring-code-line-length = 100
+[tool.ruff.lint.isort]
+force-single-line = true
 
 [tool.ruff.lint.per-file-ignores]
 "tests/**/*.py" = [
@@ -158,30 +175,9 @@ docstring-code-line-length = 100
 # endregion: ruff
 ###############################################################################
 
-###############################################################################
-# region: type-checkers
-###############################################################################
-[tool.mypy]
-# https://mypy.readthedocs.io/en/stable/config_file.html
-strict = true
-
-[tool.zuban]
-# https://docs.zubanls.com/en/latest/usage.html#configuration
-mode = "default"
-strict = true
-
-[tool.pyright]
-# https://github.com/microsoft/pyright/blob/main/docs/configuration.md
-typeCheckingMode = "strict"
-reportUnusedImport = false
-
-# [tool.basedpyright]
-# # https://docs.basedpyright.com/latest/configuration/config-files/
-# typeCheckingMode = "all"
-
-[tool.pyrefly]
-# https://pyrefly.org/en/docs/configuration/
-preset = "strict"
+[tool.ruff.format]
+docstring-code-format = true
+docstring-code-line-length = 100
 
 [tool.ty.rules]
 # https://docs.astral.sh/ty/reference/configuration/
@@ -189,3 +185,8 @@ all = "error"
 ###############################################################################
 # endregion: type-checkers
 ###############################################################################
+
+[tool.zuban]
+# https://docs.zubanls.com/en/latest/usage.html#configuration
+mode = "default"
+strict = true
