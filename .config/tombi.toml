@@ -8,3 +8,9 @@ tables-out-of-order = "off"
 
 [schema]
 strict = false
+
+# Keep the table and array order as written. Since 1.11.3, tombi otherwise reorders
+# pyproject.toml to the schema's order and splits up its region comments.
+[schema.format.rules]
+table-keys-order.enabled = false
+array-values-order.enabled = false

@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=https://www.schemastore.org/pre-commit-hooks.json
 ---
-# Updated: 2026-11-16
+# Updated: 2026-11-27
 ################################################################################
 # region: https://github.com/akiomik/mado
 ################################################################################
@@ -1056,32 +1056,32 @@
 ################################################################################
 # Sources
 #   https://github.com/akiomik/mado v0.4.0
-#   https://github.com/astral-sh/ruff-pre-commit v0.17.5
-#   https://github.com/astral-sh/ty-pre-commit v0.0.104
-#   https://github.com/astral-sh/uv-pre-commit 0.13.8
+#   https://github.com/astral-sh/ruff-pre-commit v0.17.6
+#   https://github.com/astral-sh/ty-pre-commit v0.0.112
+#   https://github.com/astral-sh/uv-pre-commit 0.13.10
 #   https://github.com/betterleaks/betterleaks v1.10.1
 #   https://github.com/ComPWA/taplo-pre-commit v0.9.3
-#   https://github.com/ewhauser/shuck v0.2.7
-#   https://github.com/facebook/pyrefly-pre-commit 1.4.1
+#   https://github.com/ewhauser/shuck v0.2.11
+#   https://github.com/facebook/pyrefly-pre-commit 1.5.0
 #   https://github.com/FlavioAmurrioCS/uv-to-pipfile v0.0.7
 #   https://github.com/gitleaks/gitleaks v8.30.1
 #   https://github.com/hadolint/hadolint v2.15.1
 #   https://github.com/jdx/jactionlint v2.6.0
-#   https://github.com/owenlamont/ryl-pre-commit v0.29.0
-#   https://github.com/oxc-project/mirrors-oxfmt v0.78.0
-#   https://github.com/oxc-project/mirrors-oxlint v1.93.0
+#   https://github.com/owenlamont/ryl-pre-commit v0.30.0
+#   https://github.com/oxc-project/mirrors-oxfmt v0.80.0
+#   https://github.com/oxc-project/mirrors-oxlint v1.95.0
 #   https://github.com/pre-commit/pre-commit-hooks v6.0.0
 #   https://github.com/python-jsonschema/check-jsonschema 0.39.0
-#   https://github.com/renovatebot/pre-commit-hooks 44.240.0
+#   https://github.com/renovatebot/pre-commit-hooks 45.3.2
 #   https://github.com/reteps/dockerfmt v1.0.0
 #   https://github.com/rhysd/actionlint v1.7.12
-#   https://github.com/rvben/rumdl-pre-commit v0.3.4
+#   https://github.com/rvben/rumdl-pre-commit v0.3.8
 #   https://github.com/scop/pre-commit-shfmt v3.14.1-1
 #   https://github.com/shellcheck-py/shellcheck-py v0.11.0.1-1
 #   https://github.com/sirwart/ripsecrets v0.1.11
 #   https://github.com/sourcemeta/jsonschema v17.3.3
-#   https://github.com/tombi-toml/tombi-pre-commit v1.10.0
-#   https://github.com/trufflesecurity/trufflehog v3.99.9
-#   https://github.com/vale-cli/vale v3.27.0
-#   https://github.com/zizmorcore/zizmor-pre-commit v1.32.0
+#   https://github.com/tombi-toml/tombi-pre-commit v1.11.3
+#   https://github.com/trufflesecurity/trufflehog v3.100.1
+#   https://github.com/vale-cli/vale v3.29.0
+#   https://github.com/zizmorcore/zizmor-pre-commit v1.33.1
 ################################################################################
